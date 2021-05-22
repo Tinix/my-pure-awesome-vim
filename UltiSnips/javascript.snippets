@@ -1,0 +1,48 @@
+snippet use "UseHook"
+const [${1:state}, ${2:setState}] = use${3:Hook}(${4:initial});$0
+endsnippet
+snippet ci "Console info"
+console.info({ ${1:prop } });$0
+endsnippet
+snippet ct "Console text"
+console.info('${1:text}');$0
+endsnippet
+snippet im "imports"
+import ${1:import} from '${2:from}';$0
+endsnippet
+snippet tag "Html tag"
+<${1:tag} ${2:props}>$0</$1>
+endsnippet
+snippet ds "Destruct prop"
+const { ${1:value} } = ${2:source};$0
+endsnippet
+snippet dstp "Destruct this.props"
+const { ${1:value} } = this.props;$0
+endsnippet
+snippet dsp "Destruct props"
+const { ${1:value} } = props;$0
+endsnippet
+snippet arrs "Arrow function single line"
+${1:()} => $0
+endsnippet
+snippet arr "Arrow function"
+${1:()} => {
+	${2:body}
+}$0
+endsnippet
+snippet fn "Function"
+function ${1:name}(${2:args}) {
+	$0
+}
+endsnippet
+snippet test "Jest test"
+test('${1:Test name}', () => {
+	$0
+})
+endsnippet
+snippet tobe "Jest to be expect"
+expect(${1:target}).toBe(${2:result})
+endsnippet
+snippet toeq "Jest to equal expect"
+expect(${1:target}).toEqual(${2:result})
+endsnippet

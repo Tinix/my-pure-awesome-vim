@@ -7,80 +7,46 @@ set rtp+=/usr/local/lib/python2.7.13/dist-packages/powerline/bindings/vim/
 source ~/.vim/general_settings.vim
 "-------------------------------- Key Bindings ------------------------------------------"
 source ~/.vim/key_bindings.vim
+" ---------------------------- Plugin Settings ------------------------------
+"source ~/.vim/plugin_settings.vim
 
-execute pathogen#infect()
+" ------------------------------ Plugins ( VimPlug ) ------------------------------
+call plug#begin('~/.vim/plugged')
 
+Plug 'sainnhe/sonokai' " Color scheme.
+Plug 'sheerun/vim-polyglot' " A collection of language packs for Vim.
+Plug 'ap/vim-css-color' " Context-sensitive color name highlighter.
+Plug 'junegunn/goyo.vim' " Distraction-free writing in Vim.
 
-"For vundle
-filetype off
-set rtp+=~/.vim/bundle/vundle
-call vundle#rc()
+Plug 'vim-airline/vim-airline' " Status/tabline for vim that's light as air.
+Plug 'tpope/vim-fugitive' " Fugitive is the premier Vim plugin for Git.
+Plug 'morhetz/gruvbox' " Theme Gruvbox
 
-" Dependency of snipmate, not sure what it is :/
-Bundle "MarcWeber/vim-addon-mw-utils"
-" Utility Funtions for other plugins, snipmate dependency
-Bundle "tomtom/tlib_vim"
-" Collection of snippet , snippet dependency
-Bundle "honza/vim-snippets"
-" Snipperts ofr our use :)
-Bundle 'garbas/vim-snipmate'
-" Good looking bottom :)
-"Bundle 'bling/vim-airline'
-"  Git tools
-Bundle 'tpope/vim-fugitive'
-" Dependnecy managment
-Bundle 'gmarik/vundle'
-" Rails :/
-Bundle 'tpope/vim-rails.git'
-"Commenting and uncommenting stuf
-Bundle 'tomtom/tcomment_vim' 
-" Molokai theme
-Bundle 'vim-ruby/vim-ruby'
-" Surround your code :)
-Bundle 'tpope/vim-surround'
-"Parentesis autogeneraso
-Bundle 'jiangmiao/auto-pairs'
-" Genera blokes de codido comunes tab completations
- Bundle 'ervandew/supertab'
-"Fuzzy finder for vim (Ctrl + P)
-Bundle 'kien/ctrlp.vim'
-"Distpatching the test runner to tmux pane
-Bundle 'tpope/vim-dispatch'
-"NERDTreeToogle
-Bundle  'scrooloose/nerdtree'
-" esperimental vundle
-Bundle 'tpope/vim-vinegar'
+Plug 'junegunn/fzf' " Fzf is a general-purpose command-line fuzzy finder.
+Plug 'junegunn/fzf.vim' " Vim plugin for basic wrapper funtion to FZF.
+Plug 'airblade/vim-rooter'
 
+Plug 'SirVer/ultisnips' " The ultimate solution for snippets in Vim.
+Plug 'dense-analysis/ale' " ALE (Asynchronous Lint Engine).
+Plug 'prettier/vim-prettier' " A vim plugin wrapper for prettier.
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' } " Completion framework for neovim/Vim8.
+Plug 'tbodt/deoplete-tabnine', { 'do': './install.sh' } " Deep learning to help you write code faster.
+Plug 'skywind3000/asyncrun.vim' " Run Async Shell Commands
+Plug 'easymotion/vim-easymotion'
+Plug 'mattn/emmet-vim'
+Plug 'voldikss/vim-floaterm'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'Yggdroot/indentLine'
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'preservim/nerdtree'
 
-"Ruby stuff: Thanks Ben :)
-" ================
-syntax on                 " Enable syntax highlighting  
-filetype plugin indent on " Enable filetype-specific indenting and plugins
+Plug 'neoclide/coc.nvim', { 'branch': 'release' }
+Plug 'amiralies/coc-elixir', {'do': 'yarn install && yarn prepack'}
+Plug 'jpo/vim-railscasts-theme'
 
-augroup myfiletypes  
-    " Clear old autocmds in group
-    autocmd!
-    " autoindent with two spaces, always expand tabs
-    autocmd FileType ruby,eruby,yaml,markdown set ai sw=2 sts=2 et
-augroup END
-" ================
+call plug#end()
 
-
-" Configs to make Molokai look great
 set background=dark  
-let g:molokai_original=1  
-let g:rehash256=1  
 colorscheme railscasts
-
-" Show trailing whitespace and spaces before a tab:
-:highlight ExtraWhitespace ctermbg=red guibg=red
-:autocmd Syntax * syn match ExtraWhitespace /\s\+$\| \+\ze\\t/
-
-" Tab completion
-set wildmode=list:longest,list:full  
-set wildignore+=*.o,*.obj,.git,*.rbc,*.class,.svn,vendor/gems/*
-
-"Config de javascript
-let g:javascript_plugin_jsdoc = 1
-let g:javascript_plugin_flow = 1
-"set foldmethod=syntax "metodo de plegado, 
