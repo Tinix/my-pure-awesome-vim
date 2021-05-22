@@ -101,19 +101,6 @@ map <F5> :colorscheme sonokai<CR>
 map <F6> :colorscheme Base4Tone_Classic_C_Light<CR>
 
 
-" In insert or command mode, move normally by using Ctrl
-" I use keyboacd Dvorak 
-
-""inoremap <C-h> <Left>
-""inoremap <C-j> <Down>
-""inoremap <C-k> <Up>
-""inoremap <C-l> <Right>
-""cnoremap <C-h> <Left>
-""cnoremap <C-j> <Down>
-""cnoremap <C-k> <Up>
-""cnoremap <C-l> <Right>
-
-
 " I use keyboard Dvorak 
 inoremap <A-h> <Left>
 inoremap <A-t> <Down>
