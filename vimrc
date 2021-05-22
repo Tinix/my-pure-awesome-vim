@@ -1,35 +1,12 @@
+" Author: Daniel Tinivella <dtinivella@gmail.com>
+" Gitlab: https://gitlab.com/tinix/my-pure-awesome-vim
+
 set rtp+=/usr/local/lib/python2.7.13/dist-packages/powerline/bindings/vim/
 
-source ~/.vim/key_bindings.vim
+"------------------------------ General Settings -----------------------------------------"
 source ~/.vim/general_settings.vim
-
-set laststatus=2
-set t_Co=256
-set hlsearch
-set incsearch
-set ignorecase
-set smartcase
-set showtabline=1
-set noshowmode
-set autoindent
-set cindent
-set number
-set tabstop=8 "ser for C programming"
-colo default
-syntax enable
-syntax on
-set expandtab
-set tabstop=7
-set mouse=a
-set ruler
-set cmdheight=2
-set pastetoggle=<F9> "copiar y pegar
-set nobackup
-set noswapfile
-set paste 
-set nopaste
-set clipboard=unnamed 
-set nocompatible " Use vim , right?
+"-------------------------------- Key Bindings ------------------------------------------"
+source ~/.vim/key_bindings.vim
 
 execute pathogen#infect()
 
@@ -93,7 +70,7 @@ augroup END
 set background=dark  
 let g:molokai_original=1  
 let g:rehash256=1  
-
+colorscheme railscasts
 
 " Show trailing whitespace and spaces before a tab:
 :highlight ExtraWhitespace ctermbg=red guibg=red
