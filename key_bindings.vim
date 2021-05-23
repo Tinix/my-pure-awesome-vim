@@ -86,6 +86,7 @@ map <Leader>tab :tabfind<cr>
 
 "Remplace Esc"
 inoremap ;; <Esc>
+imap ;; <Esc>
 
 nnoremap <leader>h <A-q>h
 nnoremap <leader>j <A-q>t
