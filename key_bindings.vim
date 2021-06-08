@@ -54,12 +54,13 @@ inoremap <%=  <%= %><left><left><left>
 
 " Fzf
 nnoremap <silent> <C-p> :Files<CR>
+nnoremap <silent> <C-p>. :Files <C-r>=expand("%:h")<CR>/<CR>>>"")>>>
 nnoremap <silent> <C-r> :Rg<CR>
 
 "Bufferes"
 map <C-f> :File<CR>
-map <leader>b :Buffers<CR>
-nnoremap <leader>b :buffers<CR>
+map <C-l>l :Buffers<CR>
+nnoremap <silent> <C-l> :Buffers<CR>
 nnoremap <leader>g :Rg<Cr>
 nnoremap <leader>t :Tags<Cr>
 

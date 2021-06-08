@@ -10,6 +10,9 @@ source ~/.vim/key_bindings.vim
 " ---------------------------- Plugin Settings ------------------------------
 "source ~/.vim/plugin_settings.vim
 
+source ~/.vim/config_settings.vim
+
+
 " ------------------------------ Plugins ( VimPlug ) ------------------------------
 call plug#begin('~/.vim/plugged')
 
@@ -20,7 +23,7 @@ Plug 'junegunn/goyo.vim' " Distraction-free writing in Vim.
 
 Plug 'vim-airline/vim-airline' " Status/tabline for vim that's light as air.
 Plug 'tpope/vim-fugitive' " Fugitive is the premier Vim plugin for Git.
-Plug 'morhetz/gruvbox' " Theme Gruvbox
+Plug 'gruvbox-community/gruvbox'
 
 Plug 'junegunn/fzf' " Fzf is a general-purpose command-line fuzzy finder.
 Plug 'junegunn/fzf.vim' " Vim plugin for basic wrapper funtion to FZF.
@@ -34,21 +37,27 @@ Plug 'tbodt/deoplete-tabnine', { 'do': './install.sh' } " Deep learning to help 
 Plug 'skywind3000/asyncrun.vim' " Run Async Shell Commands
 Plug 'easymotion/vim-easymotion'
 Plug 'mattn/emmet-vim'
-Plug 'voldikss/vim-floaterm'
+" Plug 'voldikss/vim-floaterm'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'Yggdroot/indentLine'
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-telescope/telescope-fzy-native.nvim'
+
+Plug 'flazz/vim-colorschemes'
+Plug 'chriskempson/base16-vim'
 Plug 'preservim/nerdtree'
 
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug 'amiralies/coc-elixir', {'do': 'yarn install && yarn prepack'}
 Plug 'jpo/vim-railscasts-theme'
 
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-rails'
+Plug 'vim-ruby/vim-ruby'
+Plug 'BlakeWilliams/vim-pry'
+
 call plug#end()
-
-set background=dark  
-colorscheme railscasts
-
 

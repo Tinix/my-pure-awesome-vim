@@ -42,7 +42,6 @@ nnoremap <C-p> :Files src<CR>
 nnoremap <C-b> :Buffers<CR>
 
 
-
 " Ale
 nnoremap <C-g> :ALEGoToDefinition<CR>
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
@@ -143,3 +142,16 @@ nnoremap <leader>ff <cmd>Telescope find_files<cr>
 nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+
+
+
+" FZF window floating
+if has('nvim-0.4.0') || has("patch-8.2.0191")
+  let g:fzf_layout = { 'window': {
+        \'width': 0.9,
+        \ 'height': 0.7,
+        \ 'highlight': 'Comment',
+        \ 'rounded': v:false } }
+else
+    let g:fzf_layout = { "window": "silent botright 16split enew" }
+endif

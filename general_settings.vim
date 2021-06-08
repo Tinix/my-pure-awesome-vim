@@ -4,6 +4,7 @@ syntax on
 colo default
 set laststatus=2
 set autoindent
+set hlsearch
 set number
 set mouse=a
 set ruler
