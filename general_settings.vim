@@ -19,8 +19,12 @@ set encoding=utf-8
 set showmatch
 set sw=2
 set laststatus=2
+
 "ctags
-set tags=./tags;/
+set autochdir 
+set tags=./tags;/  "to use goto definition function => ctrl + ] and ctrl + t 
+" run ctags inside that project $ctags -R *
+
 set fileencoding=utf-8
 set modeline
 set modelines=10

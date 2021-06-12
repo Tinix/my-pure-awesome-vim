@@ -39,3 +39,12 @@ let g:fzf_layout = { 'window': { 'width': 1, 'height': 0.4, 'yoffset': 1, 'borde
 " Vim-pry 
 " :call pry#insert()
 nmap <leader>d :call pry#insert()<cr>
+
+" Netrw
+let g:netrw_banner = 0 
+let g:netrw_liststyle = 3 
+let g:netrw_browser_sptit = 4 
+let g:netrw_winsize = 20 
+
+
+

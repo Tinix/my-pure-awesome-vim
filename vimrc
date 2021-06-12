@@ -16,7 +16,6 @@ source ~/.vim/config_settings.vim
 " ------------------------------ Plugins ( VimPlug ) ------------------------------
 call plug#begin('~/.vim/plugged')
 
-Plug 'sainnhe/sonokai' " Color scheme.
 Plug 'sheerun/vim-polyglot' " A collection of language packs for Vim.
 Plug 'ap/vim-css-color' " Context-sensitive color name highlighter.
 Plug 'junegunn/goyo.vim' " Distraction-free writing in Vim.
@@ -37,17 +36,21 @@ Plug 'tbodt/deoplete-tabnine', { 'do': './install.sh' } " Deep learning to help 
 Plug 'skywind3000/asyncrun.vim' " Run Async Shell Commands
 Plug 'easymotion/vim-easymotion'
 Plug 'mattn/emmet-vim'
-" Plug 'voldikss/vim-floaterm'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'Yggdroot/indentLine'
-Plug 'nvim-lua/popup.nvim'
-Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim'
-Plug 'nvim-telescope/telescope-fzy-native.nvim'
 
+" Telescope requirements...
+" Plug 'nvim-lua/popup.nvim'
+" Plug 'nvim-lua/plenary.nvim'
+" Plug 'nvim-telescope/telescope.nvim'
+" Plug 'nvim-telescope/telescope-fzy-native.nvim'
+
+" Themes
+Plug 'sainnhe/sonokai' " Color scheme.
 Plug 'flazz/vim-colorschemes'
+Plug 'arzg/vim-colors-xcode' "xcodelighthc
 Plug 'chriskempson/base16-vim'
-Plug 'preservim/nerdtree'
+Plug 'victorze/foo' "colorscheme hacker"
 
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug 'amiralies/coc-elixir', {'do': 'yarn install && yarn prepack'}

@@ -1,5 +1,12 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =3
-let g:netrw_dirhist_1='/home/tinix/rails-5-2016/blog-master'
-let g:netrw_dirhist_2='/home/tinix/.vim'
-let g:netrw_dirhist_3='/home/tinix/5-rails-2016/activejobs/app/controllers'
+let g:netrw_dirhistcnt =4
+let g:netrw_dirhist_4='/home/tinix/PHOENIX-2021/todo/lib/items'
+let g:netrw_dirhist_3='/home/tinix/WORKS-2015-2020/CODER-GUYS/coderGuys/app/models'
+let g:netrw_dirhist_2='/home/tinix/WORKS-2015-2020/CODER-GUYS/coderGuys/app/controllers'
+let g:netrw_dirhist_1='/home/tinix/WORKS-2015-2020/CODER-GUYS/coderGuys/app'
+let g:netrw_dirhist_0='/home/tinix/WORKS-2015-2020/CODER-GUYS/coderGuys'
+let g:netrw_dirhist_9='/home/tinix/WORKS-2015-2020/danielTinivella-website/weblog3/app/controllers'
+let g:netrw_dirhist_8='/home/tinix/WORKS-2015-2020/danielTinivella-website/weblog3/app'
+let g:netrw_dirhist_7='/home/tinix/WORKS-2015-2020/danielTinivella-website/weblog3'
+let g:netrw_dirhist_6='/home/tinix/PHOENIX-2021/Udemy-elixir-Phoenix-do-zero-2021-marzo/ex_mon/lib'
+let g:netrw_dirhist_5='/home/tinix/PHOENIX-2021/Udemy-elixir-Phoenix-do-zero-2021-marzo/ex_mon'
