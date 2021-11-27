@@ -38,29 +38,40 @@ Plug 'easymotion/vim-easymotion'
 Plug 'mattn/emmet-vim'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'Yggdroot/indentLine'
+" vim-go plugin goland
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'joshdick/onedark.vim'
 
-" Telescope requirements...
-" Plug 'nvim-lua/popup.nvim'
-" Plug 'nvim-lua/plenary.nvim'
-" Plug 'nvim-telescope/telescope.nvim'
-" Plug 'nvim-telescope/telescope-fzy-native.nvim'
+Plug 'gko/vim-coloresque'
 
 " Themes
+Plug 'vim-airline/vim-airline-themes'
 Plug 'sainnhe/sonokai' " Color scheme.
 Plug 'flazz/vim-colorschemes'
 Plug 'arzg/vim-colors-xcode' "xcodelighthc
 Plug 'chriskempson/base16-vim'
 Plug 'victorze/foo' "colorscheme hacker"
+Plug 'sonph/onehalf', {'rtp': 'vim/'}
 
-Plug 'neoclide/coc.nvim', { 'branch': 'release' }
-Plug 'amiralies/coc-elixir', {'do': 'yarn install && yarn prepack'}
 Plug 'jpo/vim-railscasts-theme'
+Plug 'dracula/vim', { 'as': 'dracula' }
 
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-rails'
 Plug 'vim-ruby/vim-ruby'
 Plug 'BlakeWilliams/vim-pry'
+Plug 'thoughtbot/vim-rspec'
+
+ " Devicons
+Plug 'ryanoasis/vim-devicons'
+
+" vim-easy-align
+Plug 'junegunn/vim-easy-align'
+
+Plug 'tarekbecker/vim-yaml-formatter'
+
+
 
 call plug#end()
 

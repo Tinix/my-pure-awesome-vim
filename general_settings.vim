@@ -1,7 +1,7 @@
 " ---------------------------- General Settings -----------------------------
 syntax enable
 syntax on
-colo default
+color default
 set laststatus=2
 set autoindent
 set hlsearch
@@ -16,7 +16,14 @@ set tabstop=2
 set clipboard=unnamed
 set showcmd
 set encoding=utf-8
+set guicursor=i:blinkwait700-blinkon400-blinkoff250
+" showmatch enable close-bracket
 set showmatch
+
+" :DoMatchParen "-> enable
+" NoMatchParen  " -> disable
+let g:loaded_matchparen=1
+
 set sw=2
 set laststatus=2
 
@@ -32,4 +39,3 @@ set title
 set titleold="Terminal"
 set titlestring=%F
 set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c)\
-

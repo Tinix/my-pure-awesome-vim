@@ -3,11 +3,7 @@
 let g:sonokai_transparent_background = 1
 set termguicolors
 let g:sonokai_style = 'andromeda'
-"colorscheme sonokai
-"ccolorscheme Base4Tone_Classic_A_Light
-"colorscheme Base4Tone_Classic_C_Light
 colorscheme gruvbox
-"colorscheme railscasts
 
 " Goyo
 nnoremap <silent><C-n> :Goyo<CR>
@@ -27,7 +23,7 @@ autocmd! User GoyoLeave nested call <SID>goyo_leave()
 " Airline
 set laststatus=2
 let g:airline_powerline_fonts = 1
-let g:airline_theme = 'sonokai'
+let g:airline_theme = 'violet'
 let g:airline#extensions#ale#enabled = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#formatter = 'jsformatter'
@@ -155,3 +151,5 @@ if has('nvim-0.4.0') || has("patch-8.2.0191")
 else
     let g:fzf_layout = { "window": "silent botright 16split enew" }
 endif
+
+autocmd FileType netrw setlocal bufhidden=delete
