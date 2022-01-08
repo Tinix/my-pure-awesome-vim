@@ -1,6 +1,15 @@
 " ---------------------------- Config Settings ------------------------------
-colorscheme gruvbox 
-set background=dark  
+" colorscheme zenburn
+colorscheme gruvbox
+" set background=light
+set background=dark
+
+ " Config all about gruvbox
+let g:gruvbox_transparent_bg = 1
+let g:gruvbox_bold = 1
+let g:gruvbox_termcolors = 256
+let g:gruvbox_hls_cursor = "orange"
+let g:gruvbox_vert_split = "bg1"
 
 " Goyo
  nnoremap <silent><C-n> :Goyo<CR>
@@ -20,7 +29,7 @@ autocmd! User GoyoLeave nested call <SID>goyo_leave()
 " Airline
 set laststatus=2
 let g:airline_powerline_fonts = 1
- let g:airline_theme = 'violet'
+let g:airline_theme = 'violet'
 let g:airline#extensions#ale#enabled = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#formatter = 'jsformatter'
@@ -92,3 +101,49 @@ let g:netrw_winsize = 22
 set autochdir
 map <C-E> :Lexplore<CR>
 
+
+let g:webdevicons_enable = 1
+let g:webdevicons_enable_nerdtree = 1
+let g:webdevicons_enable_netrw = 1
+let g:webdevicons_enable_airline_tabline = 1
+let g:webdevicons_enable_airline_statusline = 1
+let g:WebDevIconsUnicodeDecorateFileNodes = 1
+let WebDevIconsUnicodeDecorateFolderNodesExactMatches = 1
+let g:WebDevIconsUnicodeDecorateFolderNodeDefaultSymbol = 'ƛ'
+let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = {} " needed
+let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['js'] = 'ƛ'
+let g:WebDevIconsUnicodeDecorateFileNodesExactSymbols = {} " needed
+let g:WebDevIconsUnicodeDecorateFileNodesExactSymbols['MyReallyCoolFile.okay'] = 'ƛ'
+let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = {} " needed
+let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['myext'] = 'ƛ'
+
+" Config YouCompleteMe
+let g:plug_timeout = 300
+
+
+" This makes vim transparent in terminal by default
+" hi Normal ctermbg=NONE
+
+" let t:is_transparent = 0
+" function! Toggle_transparent()
+"    if t:is_transparent == 0
+"        if has ('gui_running')
+"            " Sets gVim to transparent
+"            :silent !transset -a --dec 0.15 
+"        else
+"            " Sets vim to opaque
+"            set background=dark
+"        endif
+"        let t:is_transparent = 1
+"    else
+"        if has ('gui_running')
+"            " Sets gVim to opaque
+"            :silent !transset -a --max 1 
+"        else
+"            " Sets vim to transparent
+"            hi Normal ctermbg=NONE
+"        endif
+"        let t:is_transparent = 0
+"    endif
+" endfunction
+" nnoremap <C-t> : call Toggle_transparent()<CR>

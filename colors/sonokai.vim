@@ -7,9 +7,17 @@
 " -----------------------------------------------------------------------------
 
 " Initialization: {{{
-highlight clear
-if exists('syntax_on')
-  syntax reset
+let s:configuration = sonokai#get_configuration()
+let s:palette = sonokai#get_palette(s:configuration.style)
+let s:path = expand('<sfile>:p') " the path of this script
+let s:last_modified = 'Fri Dec 17 01:56:21 UTC 2021'
+let g:sonokai_loaded_file_types = []
+
+if !(exists('g:colors_name') && g:colors_name ==# 'sonokai' && s:configuration.better_performance)
+  highlight clear
+  if exists('syntax_on')
+    syntax reset
+  endif
 endif
 
 let g:colors_name = 'sonokai'
@@ -17,41 +25,37 @@ let g:colors_name = 'sonokai'
 if !(has('termguicolors') && &termguicolors) && !has('gui_running') && &t_Co != 256
   finish
 endif
-
-let s:configuration = sonokai#get_configuration()
-let s:palette = sonokai#get_palette(s:configuration.style)
-let s:path = expand('<sfile>:p') " the path of this script
-let s:last_modified = 'Mon Nov 23 03:17:36 AM UTC 2020'
-let g:sonokai_loaded_file_types = []
 " }}}
 " Common Highlight Groups: {{{
 " UI: {{{
 if s:configuration.transparent_background
   call sonokai#highlight('Normal', s:palette.fg, s:palette.none)
   call sonokai#highlight('Terminal', s:palette.fg, s:palette.none)
-  call sonokai#highlight('EndOfBuffer', s:palette.bg0, s:palette.none)
+  if s:configuration.show_eob
+    call sonokai#highlight('EndOfBuffer', s:palette.bg4, s:palette.none)
+  else
+    call sonokai#highlight('EndOfBuffer', s:palette.bg0, s:palette.none)
+  endif
   call sonokai#highlight('Folded', s:palette.grey, s:palette.none)
   call sonokai#highlight('ToolbarLine', s:palette.fg, s:palette.none)
-  call sonokai#highlight('SignColumn', s:palette.fg, s:palette.none)
-  call sonokai#highlight('FoldColumn', s:palette.grey, s:palette.none)
+  call sonokai#highlight('FoldColumn', s:palette.grey_dim, s:palette.none)
 else
   call sonokai#highlight('Normal', s:palette.fg, s:palette.bg0)
   call sonokai#highlight('Terminal', s:palette.fg, s:palette.bg0)
-  call sonokai#highlight('EndOfBuffer', s:palette.bg0, s:palette.bg0)
+  if s:configuration.show_eob
+    call sonokai#highlight('EndOfBuffer', s:palette.bg4, s:palette.bg0)
+  else
+    call sonokai#highlight('EndOfBuffer', s:palette.bg0, s:palette.bg0)
+  endif
   call sonokai#highlight('Folded', s:palette.grey, s:palette.bg1)
   call sonokai#highlight('ToolbarLine', s:palette.fg, s:palette.bg2)
-  if s:configuration.sign_column_background ==# 'default'
-    call sonokai#highlight('SignColumn', s:palette.fg, s:palette.bg1)
-    call sonokai#highlight('FoldColumn', s:palette.grey, s:palette.bg1)
-  else
-    call sonokai#highlight('SignColumn', s:palette.fg, s:palette.none)
-    call sonokai#highlight('FoldColumn', s:palette.grey, s:palette.none)
-  endif
+  call sonokai#highlight('FoldColumn', s:palette.grey_dim, s:palette.none)
 endif
+call sonokai#highlight('SignColumn', s:palette.fg, s:palette.none)
 call sonokai#highlight('IncSearch', s:palette.bg0, s:palette.bg_red)
 call sonokai#highlight('Search', s:palette.bg0, s:palette.bg_green)
 call sonokai#highlight('ColorColumn', s:palette.none, s:palette.bg1)
-call sonokai#highlight('Conceal', s:palette.grey, s:palette.none)
+call sonokai#highlight('Conceal', s:palette.grey_dim, s:palette.none)
 if s:configuration.cursor ==# 'auto'
   call sonokai#highlight('Cursor', s:palette.none, s:palette.none, 'reverse')
 else
@@ -68,18 +72,16 @@ else
   call sonokai#highlight('CursorLine', s:palette.none, s:palette.bg1)
   call sonokai#highlight('CursorColumn', s:palette.none, s:palette.bg1)
 endif
-call sonokai#highlight('LineNr', s:palette.grey, s:palette.none)
+call sonokai#highlight('LineNr', s:palette.grey_dim, s:palette.none)
 if &diff
   call sonokai#highlight('CursorLineNr', s:palette.fg, s:palette.none, 'underline')
-elseif (&relativenumber == 1 && &cursorline == 0) || s:configuration.sign_column_background !=# 'default'
-  call sonokai#highlight('CursorLineNr', s:palette.fg, s:palette.none)
 else
-  call sonokai#highlight('CursorLineNr', s:palette.fg, s:palette.bg1)
+  call sonokai#highlight('CursorLineNr', s:palette.fg, s:palette.none)
 endif
 call sonokai#highlight('DiffAdd', s:palette.none, s:palette.diff_green)
 call sonokai#highlight('DiffChange', s:palette.none, s:palette.diff_blue)
 call sonokai#highlight('DiffDelete', s:palette.none, s:palette.diff_red)
-call sonokai#highlight('DiffText', s:palette.bg0, s:palette.fg)
+call sonokai#highlight('DiffText', s:palette.bg0, s:palette.blue)
 call sonokai#highlight('Directory', s:palette.green, s:palette.none)
 call sonokai#highlight('ErrorMsg', s:palette.red, s:palette.none, 'bold,underline')
 call sonokai#highlight('WarningMsg', s:palette.yellow, s:palette.none, 'bold')
@@ -102,10 +104,10 @@ highlight! link WildMenu PmenuSel
 call sonokai#highlight('PmenuThumb', s:palette.none, s:palette.grey)
 call sonokai#highlight('NormalFloat', s:palette.fg, s:palette.bg2)
 call sonokai#highlight('Question', s:palette.yellow, s:palette.none)
-call sonokai#highlight('SpellBad', s:palette.red, s:palette.none, 'undercurl', s:palette.red)
-call sonokai#highlight('SpellCap', s:palette.yellow, s:palette.none, 'undercurl', s:palette.yellow)
-call sonokai#highlight('SpellLocal', s:palette.blue, s:palette.none, 'undercurl', s:palette.blue)
-call sonokai#highlight('SpellRare', s:palette.purple, s:palette.none, 'undercurl', s:palette.purple)
+call sonokai#highlight('SpellBad', s:palette.none, s:palette.none, 'undercurl', s:palette.red)
+call sonokai#highlight('SpellCap', s:palette.none, s:palette.none, 'undercurl', s:palette.yellow)
+call sonokai#highlight('SpellLocal', s:palette.none, s:palette.none, 'undercurl', s:palette.blue)
+call sonokai#highlight('SpellRare', s:palette.none, s:palette.none, 'undercurl', s:palette.purple)
 call sonokai#highlight('StatusLine', s:palette.fg, s:palette.bg3)
 call sonokai#highlight('StatusLineTerm', s:palette.fg, s:palette.bg3)
 call sonokai#highlight('StatusLineNC', s:palette.grey, s:palette.bg1)
@@ -122,27 +124,50 @@ call sonokai#highlight('debugPC', s:palette.bg0, s:palette.green)
 call sonokai#highlight('debugBreakpoint', s:palette.bg0, s:palette.red)
 call sonokai#highlight('ToolbarButton', s:palette.bg0, s:palette.bg_blue)
 if has('nvim')
-  call sonokai#highlight('LspDiagnosticsFloatingError', s:palette.red, s:palette.bg2)
-  call sonokai#highlight('LspDiagnosticsFloatingWarning', s:palette.yellow, s:palette.bg2)
-  call sonokai#highlight('LspDiagnosticsFloatingInformation', s:palette.blue, s:palette.bg2)
-  call sonokai#highlight('LspDiagnosticsFloatingHint', s:palette.green, s:palette.bg2)
   call sonokai#highlight('Substitute', s:palette.bg0, s:palette.yellow)
-  highlight! link LspDiagnosticsDefaultError ErrorLine
-  highlight! link LspDiagnosticsDefaultWarning WarningLine
-  highlight! link LspDiagnosticsDefaultInformation InfoLine
-  highlight! link LspDiagnosticsDefaultHint HintLine
-  highlight! link LspDiagnosticsVirtualTextError Grey
-  highlight! link LspDiagnosticsVirtualTextWarning Grey
-  highlight! link LspDiagnosticsVirtualTextInformation Grey
-  highlight! link LspDiagnosticsVirtualTextHint Grey
-  highlight! link LspDiagnosticsUnderlineError ErrorLine
-  highlight! link LspDiagnosticsUnderlineWarning WarningLine
-  highlight! link LspDiagnosticsUnderlineInformation InfoLine
-  highlight! link LspDiagnosticsUnderlineHint HintLine
+  highlight! link DiagnosticFloatingError ErrorFloat
+  highlight! link DiagnosticFloatingWarn WarningFloat
+  highlight! link DiagnosticFloatingInfo InfoFloat
+  highlight! link DiagnosticFloatingHint HintFloat
+  highlight! link DiagnosticError ErrorText
+  highlight! link DiagnosticWarn WarningText
+  highlight! link DiagnosticInfo InfoText
+  highlight! link DiagnosticHint HintText
+  highlight! link DiagnosticVirtualTextError VirtualTextError
+  highlight! link DiagnosticVirtualTextWarn VirtualTextWarning
+  highlight! link DiagnosticVirtualTextInfo VirtualTextInfo
+  highlight! link DiagnosticVirtualTextHint VirtualTextHint
+  highlight! link DiagnosticUnderlineError ErrorText
+  highlight! link DiagnosticUnderlineWarn WarningText
+  highlight! link DiagnosticUnderlineInfo InfoText
+  highlight! link DiagnosticUnderlineHint HintText
+  highlight! link DiagnosticSignError RedSign
+  highlight! link DiagnosticSignWarn YellowSign
+  highlight! link DiagnosticSignInfo BlueSign
+  highlight! link DiagnosticSignHint GreenSign
+  highlight! link LspDiagnosticsFloatingError ErrorFloat
+  highlight! link LspDiagnosticsFloatingWarning WarningFloat
+  highlight! link LspDiagnosticsFloatingInformation InfoFloat
+  highlight! link LspDiagnosticsFloatingHint HintFloat
+  highlight! link LspDiagnosticsDefaultError ErrorText
+  highlight! link LspDiagnosticsDefaultWarning WarningText
+  highlight! link LspDiagnosticsDefaultInformation InfoText
+  highlight! link LspDiagnosticsDefaultHint HintText
+  highlight! link LspDiagnosticsVirtualTextError VirtualTextError
+  highlight! link LspDiagnosticsVirtualTextWarning VirtualTextWarning
+  highlight! link LspDiagnosticsVirtualTextInformation VirtualTextInfo
+  highlight! link LspDiagnosticsVirtualTextHint VirtualTextHint
+  highlight! link LspDiagnosticsUnderlineError ErrorText
+  highlight! link LspDiagnosticsUnderlineWarning WarningText
+  highlight! link LspDiagnosticsUnderlineInformation InfoText
+  highlight! link LspDiagnosticsUnderlineHint HintText
   highlight! link LspDiagnosticsSignError RedSign
   highlight! link LspDiagnosticsSignWarning YellowSign
   highlight! link LspDiagnosticsSignInformation BlueSign
   highlight! link LspDiagnosticsSignHint GreenSign
+  highlight! link LspReferenceText CurrentWord
+  highlight! link LspReferenceRead CurrentWord
+  highlight! link LspReferenceWrite CurrentWord
   highlight! link TermCursor Cursor
   highlight! link healthError Red
   highlight! link healthSuccess Green
@@ -224,20 +249,22 @@ else
   call sonokai#highlight('BlueItalic', s:palette.blue, s:palette.none)
   call sonokai#highlight('PurpleItalic', s:palette.purple, s:palette.none)
 endif
-if s:configuration.transparent_background || s:configuration.sign_column_background !=# 'default'
-  call sonokai#highlight('RedSign', s:palette.red, s:palette.none)
-  call sonokai#highlight('OrangeSign', s:palette.orange, s:palette.none)
-  call sonokai#highlight('YellowSign', s:palette.yellow, s:palette.none)
-  call sonokai#highlight('GreenSign', s:palette.green, s:palette.none)
-  call sonokai#highlight('BlueSign', s:palette.blue, s:palette.none)
-  call sonokai#highlight('PurpleSign', s:palette.purple, s:palette.none)
+call sonokai#highlight('RedSign', s:palette.red, s:palette.none)
+call sonokai#highlight('OrangeSign', s:palette.orange, s:palette.none)
+call sonokai#highlight('YellowSign', s:palette.yellow, s:palette.none)
+call sonokai#highlight('GreenSign', s:palette.green, s:palette.none)
+call sonokai#highlight('BlueSign', s:palette.blue, s:palette.none)
+call sonokai#highlight('PurpleSign', s:palette.purple, s:palette.none)
+if s:configuration.diagnostic_text_highlight
+  call sonokai#highlight('ErrorText', s:palette.none, s:palette.diff_red, 'undercurl', s:palette.red)
+  call sonokai#highlight('WarningText', s:palette.none, s:palette.diff_yellow, 'undercurl', s:palette.yellow)
+  call sonokai#highlight('InfoText', s:palette.none, s:palette.diff_blue, 'undercurl', s:palette.blue)
+  call sonokai#highlight('HintText', s:palette.none, s:palette.diff_green, 'undercurl', s:palette.green)
 else
-  call sonokai#highlight('RedSign', s:palette.red, s:palette.bg1)
-  call sonokai#highlight('OrangeSign', s:palette.orange, s:palette.bg1)
-  call sonokai#highlight('YellowSign', s:palette.yellow, s:palette.bg1)
-  call sonokai#highlight('GreenSign', s:palette.green, s:palette.bg1)
-  call sonokai#highlight('BlueSign', s:palette.blue, s:palette.bg1)
-  call sonokai#highlight('PurpleSign', s:palette.purple, s:palette.bg1)
+  call sonokai#highlight('ErrorText', s:palette.none, s:palette.none, 'undercurl', s:palette.red)
+  call sonokai#highlight('WarningText', s:palette.none, s:palette.none, 'undercurl', s:palette.yellow)
+  call sonokai#highlight('InfoText', s:palette.none, s:palette.none, 'undercurl', s:palette.blue)
+  call sonokai#highlight('HintText', s:palette.none, s:palette.none, 'undercurl', s:palette.green)
 endif
 if s:configuration.diagnostic_line_highlight
   call sonokai#highlight('ErrorLine', s:palette.none, s:palette.diff_red)
@@ -250,6 +277,21 @@ else
   highlight clear InfoLine
   highlight clear HintLine
 endif
+if s:configuration.diagnostic_virtual_text ==# 'grey'
+  highlight! link VirtualTextWarning Grey
+  highlight! link VirtualTextError Grey
+  highlight! link VirtualTextInfo Grey
+  highlight! link VirtualTextHint Grey
+else
+  highlight! link VirtualTextWarning Yellow
+  highlight! link VirtualTextError Red
+  highlight! link VirtualTextInfo Blue
+  highlight! link VirtualTextHint Green
+endif
+call sonokai#highlight('ErrorFloat', s:palette.red, s:palette.bg2)
+call sonokai#highlight('WarningFloat', s:palette.yellow, s:palette.bg2)
+call sonokai#highlight('InfoFloat', s:palette.blue, s:palette.bg2)
+call sonokai#highlight('HintFloat', s:palette.green, s:palette.bg2)
 if &diff
   call sonokai#highlight('CurrentWord', s:palette.bg0, s:palette.green)
 elseif s:configuration.current_word ==# 'grey background'
@@ -300,63 +342,166 @@ endif
 " }}}
 " Plugins: {{{
 " nvim-treesitter/nvim-treesitter {{{
-highlight! link TSPunctDelimiter Grey
-highlight! link TSPunctBracket Fg
-highlight! link TSPunctSpecial Fg
-highlight! link TSConstant OrangeItalic
-highlight! link TSConstBuiltin OrangeItalic
-highlight! link TSConstMacro Orange
-highlight! link TSString Yellow
-highlight! link TSStringRegex Green
-highlight! link TSStringEscape Green
-highlight! link TSCharacter Yellow
-highlight! link TSNumber Purple
+call sonokai#highlight('TSStrong', s:palette.none, s:palette.none, 'bold')
+call sonokai#highlight('TSEmphasis', s:palette.none, s:palette.none, 'bold')
+call sonokai#highlight('TSUnderline', s:palette.none, s:palette.none, 'underline')
+call sonokai#highlight('TSNote', s:palette.bg0, s:palette.blue, 'bold')
+call sonokai#highlight('TSWarning', s:palette.bg0, s:palette.yellow, 'bold')
+call sonokai#highlight('TSDanger', s:palette.bg0, s:palette.red, 'bold')
+highlight! link TSAnnotation BlueItalic
+highlight! link TSAttribute BlueItalic
 highlight! link TSBoolean Purple
+highlight! link TSCharacter Yellow
+highlight! link TSComment Comment
+highlight! link TSConditional Red
+highlight! link TSConstBuiltin OrangeItalic
+highlight! link TSConstMacro OrangeItalic
+highlight! link TSConstant OrangeItalic
+highlight! link TSConstructor Green
+highlight! link TSException Red
+highlight! link TSField Green
 highlight! link TSFloat Purple
-highlight! link TSFunction Green
 highlight! link TSFuncBuiltin Green
 highlight! link TSFuncMacro Green
-highlight! link TSParameter OrangeItalic
-highlight! link TSMethod Green
-highlight! link TSField Green
-highlight! link TSProperty Green
-highlight! link TSConstructor Fg
-highlight! link TSConditional Red
-highlight! link TSRepeat Red
-highlight! link TSLabel Red
-highlight! link TSOperator Red
+highlight! link TSFunction Green
+highlight! link TSInclude Red
 highlight! link TSKeyword Red
-highlight! link TSException Red
+highlight! link TSKeywordFunction Red
+highlight! link TSKeywordOperator Red
+highlight! link TSLabel Red
+highlight! link TSMethod Green
+highlight! link TSNamespace BlueItalic
+highlight! link TSNone Fg
+highlight! link TSNumber Purple
+highlight! link TSOperator Red
+highlight! link TSParameter Fg
+highlight! link TSParameterReference Fg
+highlight! link TSProperty Fg
+highlight! link TSPunctBracket Grey
+highlight! link TSPunctDelimiter Grey
+highlight! link TSPunctSpecial Yellow
+highlight! link TSRepeat Red
+highlight! link TSString Yellow
+highlight! link TSStringEscape Green
+highlight! link TSStringRegex Green
+highlight! link TSStructure OrangeItalic
+highlight! link TSSymbol Fg
+highlight! link TSTag BlueItalic
+highlight! link TSTagDelimiter Red
+highlight! link TSText Green
+highlight! link TSStrike Grey
+highlight! link TSMath Yellow
 highlight! link TSType BlueItalic
 highlight! link TSTypeBuiltin BlueItalic
-highlight! link TSStructure BlueItalic
-highlight! link TSInclude BlueItalic
+highlight! link TSURI markdownUrl
+highlight! link TSVariable Fg
+highlight! link TSVariableBuiltin OrangeItalic
 " }}}
 " neoclide/coc.nvim {{{
 call sonokai#highlight('CocHoverRange', s:palette.none, s:palette.none, 'bold,underline')
-call sonokai#highlight('CocErrorHighlight', s:palette.none, s:palette.none, 'undercurl', s:palette.red)
-call sonokai#highlight('CocWarningHighlight', s:palette.none, s:palette.none, 'undercurl', s:palette.yellow)
-call sonokai#highlight('CocInfoHighlight', s:palette.none, s:palette.none, 'undercurl', s:palette.blue)
-call sonokai#highlight('CocHintHighlight', s:palette.none, s:palette.none, 'undercurl', s:palette.green)
-call sonokai#highlight('CocErrorFloat', s:palette.red, s:palette.bg2)
-call sonokai#highlight('CocWarningFloat', s:palette.yellow, s:palette.bg2)
-call sonokai#highlight('CocInfoFloat', s:palette.blue, s:palette.bg2)
-call sonokai#highlight('CocHintFloat', s:palette.green, s:palette.bg2)
+highlight! link CocSem_angle TSTagDelimiter
+highlight! link CocSem_annotation TSOperator
+highlight! link CocSem_attribute TSAttribute
+highlight! link CocSem_bitwise TSOperator
+highlight! link CocSem_boolean TSBoolean
+highlight! link CocSem_brace TSPunctBracket
+highlight! link CocSem_bracket TSPunctBracket
+highlight! link CocSem_builtinAttribute TSAttribute
+highlight! link CocSem_builtinType TSTypeBuiltin
+highlight! link CocSem_character TSCharacter
+highlight! link CocSem_class TSType
+highlight! link CocSem_colon TSPunctDelimiter
+highlight! link CocSem_comma TSPunctDelimiter
+highlight! link CocSem_comment TSComment
+highlight! link CocSem_comparison TSOperator
+highlight! link CocSem_constParameter TSParameter
+highlight! link CocSem_dependent TSInclude
+highlight! link CocSem_dot TSOperator
+highlight! link CocSem_enum TSStructure
+highlight! link CocSem_enumMember TSVariable
+highlight! link CocSem_escapeSequence TSStringEscape
+highlight! link CocSem_event TSType
+highlight! link CocSem_formatSpecifier TSStringEscape
+highlight! link CocSem_function TSFunction
+highlight! link CocSem_interface TSType
+highlight! link CocSem_keyword TSKeyword
+highlight! link CocSem_label TSLabel
+highlight! link CocSem_logical TSOperator
+highlight! link CocSem_macro TSConstMacro
+highlight! link CocSem_method TSMethod
+highlight! link CocSem_modifier TSKeywordOperator
+highlight! link CocSem_namespace TSNamespace
+highlight! link CocSem_number TSNumber
+highlight! link CocSem_operator TSOperator
+highlight! link CocSem_parameter TSParameter
+highlight! link CocSem_parenthesis TSPunctBracket
+highlight! link CocSem_property TSProperty
+highlight! link CocSem_punctuation TSOperator
+highlight! link CocSem_regexp TSStringRegex
+highlight! link CocSem_selfKeyword TSConstBuiltin
+highlight! link CocSem_semicolon TSPunctDelimiter
+highlight! link CocSem_string TSString
+highlight! link CocSem_struct TSStructure
+highlight! link CocSem_type TSType
+highlight! link CocSem_typeAlias TSType
+highlight! link CocSem_typeParameter TSType
+highlight! link CocSem_variable TSVariable
+highlight! link CocErrorFloat ErrorFloat
+highlight! link CocWarningFloat WarningFloat
+highlight! link CocInfoFloat InfoFloat
+highlight! link CocHintFloat HintFloat
+highlight! link CocErrorHighlight ErrorText
+highlight! link CocWarningHighlight WarningText
+highlight! link CocInfoHighlight InfoText
+highlight! link CocHintHighlight HintText
 highlight! link CocHighlightText CurrentWord
+highlight! link CocHoverRange CurrentWord
 highlight! link CocErrorSign RedSign
 highlight! link CocWarningSign YellowSign
 highlight! link CocInfoSign BlueSign
 highlight! link CocHintSign GreenSign
-highlight! link CocWarningVirtualText Grey
-highlight! link CocErrorVirtualText Grey
-highlight! link CocInfoVirtualText Grey
-highlight! link CocHintVirtualText Grey
+highlight! link CocWarningVirtualText VirtualTextWarning
+highlight! link CocErrorVirtualText VirtualTextError
+highlight! link CocInfoVirtualText VirtualTextInfo
+highlight! link CocHintVirtualText VirtualTextHint
 highlight! link CocErrorLine ErrorLine
 highlight! link CocWarningLine WarningLine
 highlight! link CocInfoLine InfoLine
 highlight! link CocHintLine HintLine
 highlight! link CocCodeLens Grey
+highlight! link CocFadeOut Grey
+highlight! link CocStrikeThrough Grey
+highlight! link CocListMode StatusLine
+highlight! link CocListPath StatusLine
+highlight! link CocTreeOpenClose Grey
 highlight! link HighlightedyankRegion Visual
+highlight! link CocSymbolFile Fg
+highlight! link CocSymbolModule TSNamespace
+highlight! link CocSymbolNamespace TSNamespace
+highlight! link CocSymbolPackage TSNamespace
+highlight! link CocSymbolClass TSType
+highlight! link CocSymbolMethod TSMethod
+highlight! link CocSymbolProperty TSProperty
+highlight! link CocSymbolField TSField
+highlight! link CocSymbolConstructor TSConstructor
+highlight! link CocSymbolEnum TSStructure
+highlight! link CocSymbolInterface TSType
+highlight! link CocSymbolFunction TSFunction
+highlight! link CocSymbolVariable TSVariable
+highlight! link CocSymbolConstant TSConstant
+highlight! link CocSymbolString TSString
+highlight! link CocSymbolNumber TSNumber
+highlight! link CocSymbolBoolean TSBoolean
+highlight! link CocSymbolArray TSVariable
+highlight! link CocSymbolObject TSVariable
+highlight! link CocSymbolKey TSKeyword
+highlight! link CocSymbolNull TSVariableBuiltin
+highlight! link CocSymbolEnumMember TSNumber
+highlight! link CocSymbolStruct TSStructure
+highlight! link CocSymbolEvent TSLabel
+highlight! link CocSymbolOperator TSOperator
+highlight! link CocSymbolTypeParameter TSType
+highlight! link CocSymbolDefault TSNone
 highlight! link CocGitAddedSign GreenSign
 highlight! link CocGitChangeRemovedSign PurpleSign
 highlight! link CocGitChangedSign BlueSign
@@ -399,16 +544,17 @@ highlight! link CocExplorerBufferNameVisible Green
 highlight! link CocExplorerIndentLine Conceal
 highlight! link CocExplorerHelpDescription Grey
 highlight! link CocExplorerHelpHint Grey
+highlight! link CocRustChainingHint Grey
 " }}}
 " prabirshrestha/vim-lsp {{{
-highlight! link LspErrorVirtual Grey
-highlight! link LspWarningVirtual Grey
-highlight! link LspInformationVirtual Grey
-highlight! link LspHintVirtual Grey
-highlight! link LspErrorHighlight CocErrorHighlight
-highlight! link LspWarningHighlight CocWarningHighlight
-highlight! link LspInformationHighlight CocInfoHighlight
-highlight! link LspHintHighlight CocHintHighlight
+highlight! link LspErrorVirtual VirtualTextError
+highlight! link LspWarningVirtual VirtualTextWarning
+highlight! link LspInformationVirtual VirtualTextInfo
+highlight! link LspHintVirtual VirtualTextHint
+highlight! link LspErrorHighlight ErrorText
+highlight! link LspWarningHighlight WarningText
+highlight! link LspInformationHighlight InfoText
+highlight! link LspHintHighlight HintText
 highlight! link lspReference CurrentWord
 " }}}
 " ycm-core/YouCompleteMe {{{
@@ -416,42 +562,42 @@ highlight! link YcmErrorSign RedSign
 highlight! link YcmWarningSign YellowSign
 highlight! link YcmErrorLine ErrorLine
 highlight! link YcmWarningLine WarningLine
-highlight! link YcmErrorSection CocErrorHighlight
-highlight! link YcmWarningSection CocWarningHighlight
+highlight! link YcmErrorSection ErrorText
+highlight! link YcmWarningSection WarningText
 " }}}
 " dense-analysis/ale {{{
-highlight! link ALEError CocErrorHighlight
-highlight! link ALEWarning CocWarningHighlight
-highlight! link ALEInfo CocInfoHighlight
+highlight! link ALEError ErrorText
+highlight! link ALEWarning WarningText
+highlight! link ALEInfo InfoText
 highlight! link ALEErrorSign RedSign
 highlight! link ALEWarningSign YellowSign
 highlight! link ALEInfoSign BlueSign
 highlight! link ALEErrorLine ErrorLine
 highlight! link ALEWarningLine WarningLine
 highlight! link ALEInfoLine InfoLine
-highlight! link ALEVirtualTextError Grey
-highlight! link ALEVirtualTextWarning Grey
-highlight! link ALEVirtualTextInfo Grey
-highlight! link ALEVirtualTextStyleError Grey
-highlight! link ALEVirtualTextStyleWarning Grey
+highlight! link ALEVirtualTextError VirtualTextError
+highlight! link ALEVirtualTextWarning VirtualTextWarning
+highlight! link ALEVirtualTextInfo VirtualTextInfo
+highlight! link ALEVirtualTextStyleError VirtualTextHint
+highlight! link ALEVirtualTextStyleWarning VirtualTextHint
 " }}}
 " neomake/neomake {{{
-highlight! link NeomakeError ALEError
+highlight! link NeomakeError ErrorText
+highlight! link NeomakeWarning WarningText
+highlight! link NeomakeInfo InfoText
+highlight! link NeomakeMessage HintText
 highlight! link NeomakeErrorSign RedSign
-highlight! link NeomakeWarning ALEWarning
 highlight! link NeomakeWarningSign YellowSign
-highlight! link NeomakeInfo ALEInfo
 highlight! link NeomakeInfoSign BlueSign
-highlight! link NeomakeMessage Green
 highlight! link NeomakeMessageSign GreenSign
-highlight! link NeomakeVirtualtextError Grey
-highlight! link NeomakeVirtualtextWarning Grey
-highlight! link NeomakeVirtualtextInfo Grey
-highlight! link NeomakeVirtualtextMessag Grey
+highlight! link NeomakeVirtualtextError VirtualTextError
+highlight! link NeomakeVirtualtextWarning VirtualTextWarning
+highlight! link NeomakeVirtualtextInfo VirtualTextInfo
+highlight! link NeomakeVirtualtextMessag VirtualTextHint
 " }}}
 " vim-syntastic/syntastic {{{
-highlight! link SyntasticError ALEError
-highlight! link SyntasticWarning ALEWarning
+highlight! link SyntasticError ErrorText
+highlight! link SyntasticWarning WarningText
 highlight! link SyntasticErrorSign RedSign
 highlight! link SyntasticWarningSign YellowSign
 highlight! link SyntasticErrorLine ErrorLine
@@ -468,10 +614,57 @@ call sonokai#highlight('Lf_hl_match2', s:palette.red, s:palette.none, 'bold')
 call sonokai#highlight('Lf_hl_match3', s:palette.yellow, s:palette.none, 'bold')
 call sonokai#highlight('Lf_hl_match4', s:palette.purple, s:palette.none, 'bold')
 call sonokai#highlight('Lf_hl_matchRefine', s:palette.yellow, s:palette.none, 'bold')
+call sonokai#highlight('Lf_hl_popup_normalMode', s:palette.bg0, s:palette.blue, 'bold')
+call sonokai#highlight('Lf_hl_popup_inputMode', s:palette.bg0, s:palette.green, 'bold')
+call sonokai#highlight('Lf_hl_popup_category', s:palette.fg, s:palette.bg4)
+call sonokai#highlight('Lf_hl_popup_nameOnlyMode', s:palette.fg, s:palette.bg3)
+call sonokai#highlight('Lf_hl_popup_fullPathMode', s:palette.fg, s:palette.bg3)
+call sonokai#highlight('Lf_hl_popup_fuzzyMode', s:palette.fg, s:palette.bg3)
+call sonokai#highlight('Lf_hl_popup_regexMode', s:palette.fg, s:palette.bg3)
+call sonokai#highlight('Lf_hl_popup_lineInfo', s:palette.bg0, s:palette.blue)
+call sonokai#highlight('Lf_hl_popup_total', s:palette.bg0, s:palette.red)
+call sonokai#highlight('Lf_hl_popup_cursor', s:palette.bg0, s:palette.blue)
 highlight! link Lf_hl_cursorline Fg
 highlight! link Lf_hl_selection DiffAdd
 highlight! link Lf_hl_rgHighlight Visual
 highlight! link Lf_hl_gtagsHighlight Visual
+highlight! link Lf_hl_popup_inputText Pmenu
+highlight! link Lf_hl_popup_window Pmenu
+highlight! link Lf_hl_popup_prompt Blue
+highlight! link Lf_hl_popup_cwd Pmenu
+highlight! link Lf_hl_popup_blank Lf_hl_popup_window
+highlight! link Lf_hl_popup_spin Purple
+" }}}
+" liuchengxu/vim-clap {{{
+call sonokai#highlight('ClapSelected', s:palette.red, s:palette.bg2, 'bold')
+call sonokai#highlight('ClapCurrentSelection', s:palette.blue, s:palette.bg2, 'bold')
+call sonokai#highlight('ClapBlines', s:palette.fg, s:palette.bg2)
+call sonokai#highlight('ClapProviderId', s:palette.fg, s:palette.bg2, 'bold')
+call sonokai#highlight('ClapMatches1', s:palette.red, s:palette.bg2, 'bold')
+call sonokai#highlight('ClapMatches2', s:palette.orange, s:palette.bg2, 'bold')
+call sonokai#highlight('ClapMatches3', s:palette.yellow, s:palette.bg2, 'bold')
+call sonokai#highlight('ClapMatches4', s:palette.blue, s:palette.bg2, 'bold')
+call sonokai#highlight('ClapMatches5', s:palette.purple, s:palette.bg2, 'bold')
+call sonokai#highlight('ClapFuzzyMatches', s:palette.green, s:palette.bg2, 'bold')
+call sonokai#highlight('ClapNoMatchesFound', s:palette.red, s:palette.bg2, 'bold')
+highlight! link ClapInput Pmenu
+highlight! link ClapDisplay Pmenu
+highlight! link ClapPreview Pmenu
+highlight! link ClapFuzzyMatches1 ClapFuzzyMatches
+highlight! link ClapFuzzyMatches2 ClapFuzzyMatches
+highlight! link ClapFuzzyMatches3 ClapFuzzyMatches
+highlight! link ClapFuzzyMatches4 ClapFuzzyMatches
+highlight! link ClapFuzzyMatches5 ClapFuzzyMatches
+highlight! link ClapFuzzyMatches6 ClapFuzzyMatches
+highlight! link ClapFuzzyMatches7 ClapFuzzyMatches
+highlight! link ClapFuzzyMatches8 ClapFuzzyMatches
+highlight! link ClapFuzzyMatches9 ClapFuzzyMatches
+highlight! link ClapFuzzyMatches10 ClapFuzzyMatches
+highlight! link ClapFuzzyMatches11 ClapFuzzyMatches
+highlight! link ClapFuzzyMatches12 ClapFuzzyMatches
+highlight! link ClapBlinesLineNr Grey
+highlight! link ClapProviderColon ClapBlines
+highlight! link ClapProviderAbout ClapBlines
 " }}}
 " junegunn/fzf.vim {{{
 let g:fzf_colors = {
@@ -482,6 +675,7 @@ let g:fzf_colors = {
       \ 'bg+': ['bg', 'CursorLine', 'CursorColumn'],
       \ 'hl+': ['fg', 'Green'],
       \ 'info': ['fg', 'Yellow'],
+      \ 'border':  ['fg', 'Grey'],
       \ 'prompt': ['fg', 'Red'],
       \ 'pointer': ['fg', 'Blue'],
       \ 'marker': ['fg', 'Blue'],
@@ -512,12 +706,24 @@ highlight! link GitGutterAdd GreenSign
 highlight! link GitGutterChange BlueSign
 highlight! link GitGutterDelete RedSign
 highlight! link GitGutterChangeDelete PurpleSign
+highlight! link GitGutterAddLine DiffAdd
+highlight! link GitGutterChangeLine DiffChange
+highlight! link GitGutterDeleteLine DiffDelete
+highlight! link GitGutterChangeDeleteLine DiffChange
+highlight! link GitGutterAddLineNr Green
+highlight! link GitGutterChangeLineNr Blue
+highlight! link GitGutterDeleteLineNr Red
+highlight! link GitGutterChangeDeleteLineNr Purple
 " }}}
 " mhinz/vim-signify {{{
 highlight! link SignifySignAdd GreenSign
 highlight! link SignifySignChange BlueSign
 highlight! link SignifySignDelete RedSign
 highlight! link SignifySignChangeDelete PurpleSign
+highlight! link SignifyLineAdd DiffAdd
+highlight! link SignifyLineChange DiffChange
+highlight! link SignifyLineChangeDelete DiffChange
+highlight! link SignifyLineDelete DiffDelete
 " }}}
 " andymass/vim-matchup {{{
 call sonokai#highlight('MatchParenCur', s:palette.none, s:palette.none, 'bold')
@@ -545,7 +751,6 @@ let g:VM_Cursor_hl = 'Cursor'
 let g:VM_Insert_hl = 'Cursor'
 " }}}
 " dominikduda/vim_current_word {{{
-highlight! link CurrentWord CurrentWord
 highlight! link CurrentWordTwins CurrentWord
 " }}}
 " RRethy/vim-illuminate {{{
@@ -556,14 +761,25 @@ highlight! link CursorWord0 CurrentWord
 highlight! link CursorWord1 CurrentWord
 " }}}
 " Yggdroot/indentLine {{{
-let g:indentLine_color_gui = s:palette.grey[0]
-let g:indentLine_color_term = s:palette.grey[1]
+let g:indentLine_color_gui = s:palette.grey_dim[0]
+let g:indentLine_color_term = s:palette.grey_dim[1]
 " }}}
 " nathanaelkane/vim-indent-guides {{{
 if get(g:, 'indent_guides_auto_colors', 1) == 0
   call sonokai#highlight('IndentGuidesOdd', s:palette.bg0, s:palette.bg1)
   call sonokai#highlight('IndentGuidesEven', s:palette.bg0, s:palette.bg2)
 endif
+" }}}
+" thiagoalessio/rainbow_levels.vim {{{
+highlight! link RainbowLevel0 Red
+highlight! link RainbowLevel1 Orange
+highlight! link RainbowLevel2 Yellow
+highlight! link RainbowLevel3 Green
+highlight! link RainbowLevel4 Blue
+highlight! link RainbowLevel5 Purple
+highlight! link RainbowLevel6 Yellow
+highlight! link RainbowLevel7 Green
+highlight! link RainbowLevel8 Blue
 " }}}
 " kshenoy/vim-signature {{{
 highlight! link SignatureMarkText BlueSign
@@ -604,22 +820,135 @@ highlight! link agitDiffAdd Green
 highlight! link agitDiffHeader Blue
 highlight! link agitAuthor Yellow
 " }}}
-" netrw {{{
-" https://www.vim.org/scripts/script.php?script_id=1075
-highlight! link netrwDir Green
-highlight! link netrwClassify Green
-highlight! link netrwLink Grey
-highlight! link netrwSymLink Fg
-highlight! link netrwExe Red
-highlight! link netrwComment Grey
-highlight! link netrwList Yellow
-highlight! link netrwHelpCmd Blue
-highlight! link netrwCmdSep Grey
-highlight! link netrwVersion Purple
+if has('nvim')
+" hrsh7th/nvim-cmp {{{
+call sonokai#highlight('CmpItemAbbrMatch', s:palette.green, s:palette.none, 'bold')
+call sonokai#highlight('CmpItemAbbrMatchFuzzy', s:palette.green, s:palette.none, 'bold')
+highlight! link CmpItemAbbr Fg
+highlight! link CmpItemAbbrDeprecated Fg
+highlight! link CmpItemMenu Fg
+highlight! link CmpItemKind Blue
+highlight! link CmpItemKindText Fg
+highlight! link CmpItemKindMethod Green
+highlight! link CmpItemKindFunction Green
+highlight! link CmpItemKindConstructor Green
+highlight! link CmpItemKindField Green
+highlight! link CmpItemKindVariable Orange
+highlight! link CmpItemKindClass Blue
+highlight! link CmpItemKindInterface Blue
+highlight! link CmpItemKindModule Blue
+highlight! link CmpItemKindProperty Orange
+highlight! link CmpItemKindUnit Purple
+highlight! link CmpItemKindValue Purple
+highlight! link CmpItemKindEnum Blue
+highlight! link CmpItemKindKeyword Red
+highlight! link CmpItemKindSnippet Yellow
+highlight! link CmpItemKindColor Yellow
+highlight! link CmpItemKindFile Yellow
+highlight! link CmpItemKindReference Yellow
+highlight! link CmpItemKindFolder Yellow
+highlight! link CmpItemKindEnumMember Purple
+highlight! link CmpItemKindConstant Orange
+highlight! link CmpItemKindStruct Blue
+highlight! link CmpItemKindEvent Red
+highlight! link CmpItemKindOperator Red
+highlight! link CmpItemKindTypeParameter Blue
 " }}}
+" folke/trouble.nvim {{{
+highlight! link TroubleText Fg
+highlight! link TroubleSource Grey
+highlight! link TroubleCode Grey
+" }}}
+" nvim-telescope/telescope.nvim {{{
+call sonokai#highlight('TelescopeMatching', s:palette.green, s:palette.none, 'bold')
+highlight! link TelescopeBorder Grey
+highlight! link TelescopePromptPrefix Blue
+highlight! link TelescopeSelection DiffAdd
+" }}}
+" lewis6991/gitsigns.nvim {{{
+highlight! link GitSignsAdd GreenSign
+highlight! link GitSignsChange BlueSign
+highlight! link GitSignsDelete RedSign
+highlight! link GitSignsAddNr Green
+highlight! link GitSignsChangeNr Blue
+highlight! link GitSignsDeleteNr Red
+highlight! link GitSignsAddLn DiffAdd
+highlight! link GitSignsChangeLn DiffChange
+highlight! link GitSignsDeleteLn DiffDelete
+highlight! link GitSignsCurrentLineBlame Grey
+" }}}
+" phaazon/hop.nvim {{{
+call sonokai#highlight('HopNextKey', s:palette.red, s:palette.none, 'bold')
+call sonokai#highlight('HopNextKey1', s:palette.blue, s:palette.none, 'bold')
+highlight! link HopNextKey2 Blue
+highlight! link HopUnmatched Grey
+" }}}
+" lukas-reineke/indent-blankline.nvim {{{
+highlight! link IndentBlanklineChar Conceal
+highlight! link IndentBlanklineSpaceChar Conceal
+highlight! link IndentBlanklineSpaceCharBlankline Conceal
+highlight! link IndentBlanklineContextChar Grey
+" }}}
+" p00f/nvim-ts-rainbow {{{
+highlight! link rainbowcol1 Red
+highlight! link rainbowcol2 Orange
+highlight! link rainbowcol3 Yellow
+highlight! link rainbowcol4 Green
+highlight! link rainbowcol5 Blue
+highlight! link rainbowcol6 Purple
+highlight! link rainbowcol7 Green
+" }}}
+" romgrk/barbar.nvim {{{
+call sonokai#highlight('BufferCurrent', s:palette.fg, s:palette.bg4)
+call sonokai#highlight('BufferCurrentIndex', s:palette.fg, s:palette.bg4)
+call sonokai#highlight('BufferCurrentMod', s:palette.blue, s:palette.bg4)
+call sonokai#highlight('BufferCurrentSign', s:palette.red, s:palette.bg4)
+call sonokai#highlight('BufferCurrentTarget', s:palette.red, s:palette.bg4, 'bold')
+call sonokai#highlight('BufferVisible', s:palette.fg, s:palette.bg2)
+call sonokai#highlight('BufferVisibleIndex', s:palette.fg, s:palette.bg2)
+call sonokai#highlight('BufferVisibleMod', s:palette.blue, s:palette.bg2)
+call sonokai#highlight('BufferVisibleSign', s:palette.red, s:palette.bg2)
+call sonokai#highlight('BufferVisibleTarget', s:palette.yellow, s:palette.bg2, 'bold')
+call sonokai#highlight('BufferInactive', s:palette.grey, s:palette.bg2)
+call sonokai#highlight('BufferInactiveIndex', s:palette.grey, s:palette.bg2)
+call sonokai#highlight('BufferInactiveMod', s:palette.grey, s:palette.bg2)
+call sonokai#highlight('BufferInactiveSign', s:palette.grey_dim, s:palette.bg2)
+call sonokai#highlight('BufferInactiveTarget', s:palette.yellow, s:palette.bg2, 'bold')
+call sonokai#highlight('BufferTabpages', s:palette.bg0, s:palette.blue, 'bold')
+call sonokai#highlight('BufferTabpageFill', s:palette.bg0, s:palette.bg0)
+" }}}
+" rcarriga/nvim-notify {{{
+highlight! link NotifyERRORBorder Red
+highlight! link NotifyWARNBorder Yellow
+highlight! link NotifyINFOBorder Green
+highlight! link NotifyDEBUGBorder Grey
+highlight! link NotifyTRACEBorder Purple
+highlight! link NotifyERRORIcon Red
+highlight! link NotifyWARNIcon Yellow
+highlight! link NotifyINFOIcon Green
+highlight! link NotifyDEBUGIcon Grey
+highlight! link NotifyTRACEIcon Purple
+highlight! link NotifyERRORTitle Red
+highlight! link NotifyWARNTitle Yellow
+highlight! link NotifyINFOTitle Green
+highlight! link NotifyDEBUGTitle Grey
+highlight! link NotifyTRACETitle Purple
+" }}}
+endif
 " }}}
 " Extended File Types: {{{
-" Note: To ensure that the `s:last_modified` variable is always up to date, you need to copy `.githooks/pre-commit` to `.git/hooks/pre-commit`.
+" Whitelist: {{{ File type optimizations that will always be loaded.
+" diff {{{
+highlight! link diffAdded Green
+highlight! link diffRemoved Red
+highlight! link diffChanged Blue
+highlight! link diffOldFile Yellow
+highlight! link diffNewFile Orange
+highlight! link diffFile Purple
+highlight! link diffLine Grey
+highlight! link diffIndexLine Purple
+" }}}
+" }}}
 " Generate the `after/ftplugin` directory based on the comment tags in this file.
 " For example, the content between `ft_begin: sh/zsh` and `ft_end` will be placed in `after/ftplugin/sh/sonokai.vim` and `after/ftplugin/zsh/sonokai.vim`.
 if sonokai#ft_exists(s:path) " If the ftplugin exists.
@@ -629,7 +958,7 @@ if sonokai#ft_exists(s:path) " If the ftplugin exists.
       call sonokai#ft_gen(s:path, s:last_modified, 'update')
     endif
     finish
-  elseif !has('nvim') " Only clean the `after/ftplugin` directory when in vim. This code will produce a bug in neovim.
+  else
     call sonokai#ft_clean(s:path, 1)
   endif
 else
@@ -704,6 +1033,57 @@ highlight! link NERDTreeLinkTarget Green
 highlight! link DirvishPathTail Blue
 highlight! link DirvishArg Yellow
 " ft_end }}}
+" ft_begin: NvimTree {{{
+" https://github.com/kyazdani42/nvim-tree.lua
+highlight! link NvimTreeSymlink Fg
+highlight! link NvimTreeFolderName Green
+highlight! link NvimTreeRootFolder Grey
+highlight! link NvimTreeFolderIcon Blue
+highlight! link NvimTreeEmptyFolderName Green
+highlight! link NvimTreeOpenedFolderName Green
+highlight! link NvimTreeExecFile Fg
+highlight! link NvimTreeOpenedFile Fg
+highlight! link NvimTreeSpecialFile Fg
+highlight! link NvimTreeImageFile Fg
+highlight! link NvimTreeMarkdownFile Fg
+highlight! link NvimTreeIndentMarker Grey
+highlight! link NvimTreeGitDirty Yellow
+highlight! link NvimTreeGitStaged Blue
+highlight! link NvimTreeGitMerge Orange
+highlight! link NvimTreeGitRenamed Purple
+highlight! link NvimTreeGitNew Green
+highlight! link NvimTreeGitDeleted Red
+highlight! link NvimTreeLspDiagnosticsError RedSign
+highlight! link NvimTreeLspDiagnosticsWarning YellowSign
+highlight! link NvimTreeLspDiagnosticsInformation BlueSign
+highlight! link NvimTreeLspDiagnosticsHint GreenSign
+" ft_end }}}
+" ft_begin: fern {{{
+" https://github.com/lambdalisue/fern.vim
+highlight! link FernMarkedLine None
+highlight! link FernMarkedText Purple
+highlight! link FernRootSymbol FernRootText
+highlight! link FernRootText Blue
+highlight! link FernLeafSymbol FernLeafText
+highlight! link FernLeafText Fg
+highlight! link FernBranchSymbol FernBranchText
+highlight! link FernBranchText Green
+highlight! link FernWindowSelectIndicator TabLineSel
+highlight! link FernWindowSelectStatusLine TabLine
+" ft_end }}}
+" ft_begin: netrw {{{
+" https://www.vim.org/scripts/script.php?script_id=1075
+highlight! link netrwDir Green
+highlight! link netrwClassify Green
+highlight! link netrwLink Grey
+highlight! link netrwSymLink Fg
+highlight! link netrwExe Red
+highlight! link netrwComment Grey
+highlight! link netrwList Yellow
+highlight! link netrwHelpCmd Blue
+highlight! link netrwCmdSep Grey
+highlight! link netrwVersion Purple
+" ft_end }}}
 " ft_begin: startify/quickmenu {{{
 " https://github.com/mhinz/vim-startify
 " https://github.com/skywind3000/quickmenu.vim
@@ -737,6 +1117,21 @@ highlight! link UndotreeTimeStamp Grey
 highlight! link UndotreeHead Purple
 highlight! link UndotreeBranch Blue
 highlight! link UndotreeSavedSmall Red
+" ft_end }}}
+" ft_begin: NeogitStatus/NeogitCommitView {{{
+" https://github.com/TimUntersberger/neogit
+highlight! link NeogitNotificationInfo Blue
+highlight! link NeogitNotificationWarning Yellow
+highlight! link NeogitNotificationError Red
+highlight! link NeogitDiffAdd Green
+highlight! link NeogitDiffDelete Red
+highlight! link NeogitDiffContextHighlight CursorLine
+highlight! link NeogitHunkHeaderHighlight TabLine
+highlight! link NeogitHunkHeader TabLineFill
+highlight! link NeogitCommandCodeNormal Green
+highlight! link NeogitCommandCodeError Red
+highlight! link NeogitCommitViewHeader diffIndexLine
+highlight! link NeogitFilePath diffFile
 " ft_end }}}
 " ft_begin: markdown {{{
 " builtin: {{{
@@ -782,6 +1177,27 @@ highlight! link mkdDelimiter Grey
 highlight! link mkdId Yellow
 " }}}
 " ft_end }}}
+" ft_begin: vimwiki {{{
+call sonokai#highlight('VimwikiHeader1', s:palette.red, s:palette.none, 'bold')
+call sonokai#highlight('VimwikiHeader2', s:palette.orange, s:palette.none, 'bold')
+call sonokai#highlight('VimwikiHeader3', s:palette.yellow, s:palette.none, 'bold')
+call sonokai#highlight('VimwikiHeader4', s:palette.green, s:palette.none, 'bold')
+call sonokai#highlight('VimwikiHeader5', s:palette.blue, s:palette.none, 'bold')
+call sonokai#highlight('VimwikiHeader6', s:palette.purple, s:palette.none, 'bold')
+call sonokai#highlight('VimwikiLink', s:palette.blue, s:palette.none, 'underline')
+call sonokai#highlight('VimwikiItalic', s:palette.none, s:palette.none, 'italic')
+call sonokai#highlight('VimwikiBold', s:palette.none, s:palette.none, 'bold')
+call sonokai#highlight('VimwikiUnderline', s:palette.none, s:palette.none, 'underline')
+highlight! link VimwikiList Red
+highlight! link VimwikiTag Blue
+highlight! link VimwikiCode Green
+highlight! link VimwikiHR Yellow
+highlight! link VimwikiHeaderChar Grey
+highlight! link VimwikiMarkers Grey
+highlight! link VimwikiPre Green
+highlight! link VimwikiPreDelim Green
+highlight! link VimwikiNoExistsLink Red
+" ft_end }}}
 " ft_begin: rst {{{
 " builtin: https://github.com/marshallward/vim-restructuredtext{{{
 call sonokai#highlight('rstStandaloneHyperlink', s:palette.purple, s:palette.none, 'underline')
@@ -810,6 +1226,20 @@ highlight! link texDocType RedItalic
 highlight! link texDocTypeArgs Orange
 highlight! link texInputFile Green
 " }}}
+" vimtex: https://github.com/lervag/vimtex {{{
+highlight! link texFileArg Green
+highlight! link texCmd BlueItalic
+highlight! link texCmdPackage BlueItalic
+highlight! link texCmdDef Red
+highlight! link texDefArgName Yellow
+highlight! link texCmdNewcmd Red
+highlight! link texCmdClass Red
+highlight! link texCmdTitle Red
+highlight! link texCmdAuthor Red
+highlight! link texCmdEnv Red
+highlight! link texCmdPart Red
+highlight! link texEnvArgName Green
+" }}}
 " ft_end }}}
 " ft_begin: html/markdown/javascriptreact/typescriptreact {{{
 " builtin: https://notabug.org/jorgesumle/vim-html-syntax{{{
@@ -835,6 +1265,11 @@ highlight! link htmlArg Blue
 highlight! link htmlScriptTag Purple
 highlight! link htmlSpecialTagName RedItalic
 highlight! link htmlString Green
+" }}}
+" ft_end }}}
+" ft_begin: htmldjango {{{
+" builtin: https://github.com/vim/vim/blob/master/runtime/syntax/htmldjango.vim{{{
+highlight! link djangoTagBlock Yellow
 " }}}
 " ft_end }}}
 " ft_begin: xml {{{
@@ -1283,23 +1718,23 @@ highlight! link cppSTLexception Red
 highlight! link cppSTLVariable BlueItalic
 " }}}
 " chromatica: https://github.com/arakashic/chromatica.nvim{{{
-highlight! link Member OrangeItalic
-highlight! link Variable Fg
-highlight! link Namespace BlueItalic
-highlight! link EnumConstant OrangeItalic
-highlight! link chromaticaException Red
-highlight! link chromaticaCast Red
-highlight! link OperatorOverload Red
-highlight! link AccessQual Red
-highlight! link Linkage Red
-highlight! link AutoType BlueItalic
+highlight! link Member TSVariable
+highlight! link Variable TSVariable
+highlight! link Namespace TSNamespace
+highlight! link EnumConstant TSNumber
+highlight! link chromaticaException TSException
+highlight! link chromaticaCast TSLabel
+highlight! link OperatorOverload TSOperator
+highlight! link AccessQual TSOperator
+highlight! link Linkage TSOperator
+highlight! link AutoType TSType
 " }}}
 " vim-lsp-cxx-highlight https://github.com/jackguo380/vim-lsp-cxx-highlight{{{
 highlight! link LspCxxHlSkippedRegion Grey
-highlight! link LspCxxHlSkippedRegionBeginEnd Red
-highlight! link LspCxxHlGroupEnumConstant OrangeItalic
-highlight! link LspCxxHlGroupNamespace BlueItalic
-highlight! link LspCxxHlGroupMemberVariable OrangeItalic
+highlight! link LspCxxHlSkippedRegionBeginEnd TSKeyword
+highlight! link LspCxxHlGroupEnumConstant TSStructure
+highlight! link LspCxxHlGroupNamespace TSNamespace
+highlight! link LspCxxHlGroupMemberVariable TSVariable
 " }}}
 " ft_end }}}
 " ft_begin: objc {{{
@@ -1350,18 +1785,18 @@ highlight! link pythonDot Grey
 " }}}
 " semshi: https://github.com/numirias/semshi{{{
 call sonokai#highlight('semshiUnresolved', s:palette.orange, s:palette.none, 'undercurl')
-highlight! link semshiImported BlueItalic
-highlight! link semshiParameter OrangeItalic
+highlight! link semshiImported TSInclude
+highlight! link semshiParameter TSParameter
 highlight! link semshiParameterUnused Grey
-highlight! link semshiSelf BlueItalic
-highlight! link semshiGlobal Green
-highlight! link semshiBuiltin Green
-highlight! link semshiAttribute OrangeItalic
-highlight! link semshiLocal Red
-highlight! link semshiFree Red
-highlight! link semshiSelected CocHighlightText
-highlight! link semshiErrorSign ALEErrorSign
-highlight! link semshiErrorChar ALEErrorSign
+highlight! link semshiSelf TSVariableBuiltin
+highlight! link semshiGlobal TSType
+highlight! link semshiBuiltin TSTypeBuiltin
+highlight! link semshiAttribute TSAttribute
+highlight! link semshiLocal TSKeyword
+highlight! link semshiFree TSKeyword
+highlight! link semshiSelected CurrentWord
+highlight! link semshiErrorSign RedSign
+highlight! link semshiErrorChar RedSign
 " }}}
 " ft_end }}}
 " ft_begin: lua {{{
@@ -1620,6 +2055,15 @@ highlight! link matlabRelationalOperator Red
 highlight! link matlabLogicalOperator Red
 " }}}
 " ft_end }}}
+" ft_begin: octave {{{
+" vim-octave: https://github.com/McSinyx/vim-octave{{{
+highlight! link octaveDelimiter Orange
+highlight! link octaveSemicolon Grey
+highlight! link octaveOperator Orange
+highlight! link octaveVariable BlueItalic
+highlight! link octaveVarKeyword BlueItalic
+" }}}
+" ft_end }}}
 " ft_begin: sh/zsh {{{
 " builtin: http://www.drchip.org/astronaut/vim/index.html#SYNTAX_SH{{{
 highlight! link shRange Fg
@@ -1804,16 +2248,6 @@ highlight! link tomlBoolean Blue
 highlight! link tomlString Green
 highlight! link tomlTableArray tomlTable
 " ft_end }}}
-" ft_begin: diff/git {{{
-highlight! link diffAdded Green
-highlight! link diffRemoved Red
-highlight! link diffChanged Blue
-highlight! link diffOldFile Yellow
-highlight! link diffNewFile Orange
-highlight! link diffFile Purple
-highlight! link diffLine Grey
-highlight! link diffIndexLine Purple
-" ft_end }}}
 " ft_begin: gitcommit {{{
 highlight! link gitcommitSummary Red
 highlight! link gitcommitUntracked Grey
@@ -1844,4 +2278,4 @@ highlight! link helpSectionDelim Grey
 " ft_end }}}
 " }}}
 
-" vim: set sw=2 ts=2 sts=2 et tw=80 ft=vim fdm=marker fmr={{{,}}}:
+" vim: set sw=2 ts=2 sts=2 et tw=80 ft=vim fdm=marker fmr={{{,}}}

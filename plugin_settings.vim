@@ -71,6 +71,9 @@ let g:ale_elixir_elixir_ls_release = expand("<path to your release>")
 " Optional, you can disable Dialyzer with this setting
 let g:ale_elixir_elixir_ls_config = {'elixirLS': {'dialyzerEnabled': v:false}}
 
+"Elixir Test Run"
+" let g:elixir_mix_test_position = "default"
+let g:elixir_mix_test_position = "right"
 
 "End config Elixir"
 
@@ -102,7 +105,7 @@ command -nargs=1 AsyncRun npx jest "<args>"
 
 "NERDTree
 let g:NERDTreeGitStatusWithFlags = 0
-let NERDTreeShowHidden = 0
+let NERDTreeShowHidden = 1
 let NERDTreeClose = 1 "To enable this behavior by default, add NERDTreeShowHidden = 0"
 let g:NERDTreeIgnore = ['^node_modules$']
 
@@ -153,3 +156,6 @@ else
 endif
 
 autocmd FileType netrw setlocal bufhidden=delete
+
+
+

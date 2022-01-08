@@ -8,10 +8,11 @@ source ~/.vim/general_settings.vim
 "-------------------------------- Key Bindings ------------------------------------------"
 source ~/.vim/key_bindings.vim
 " ---------------------------- Plugin Settings ------------------------------
-"source ~/.vim/plugin_settings.vim
+" source ~/.vim/plugin_settings.vim
 
 source ~/.vim/config_settings.vim
 
+source ~/.vim/resize.vim
 
 " ------------------------------ Plugins ( VimPlug ) ------------------------------
 call plug#begin('~/.vim/plugged')
@@ -38,6 +39,7 @@ Plug 'easymotion/vim-easymotion'
 Plug 'mattn/emmet-vim'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'Yggdroot/indentLine'
+
 " vim-go plugin goland
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'joshdick/onedark.vim'
@@ -52,7 +54,7 @@ Plug 'arzg/vim-colors-xcode' "xcodelighthc
 Plug 'chriskempson/base16-vim'
 Plug 'victorze/foo' "colorscheme hacker"
 Plug 'sonph/onehalf', {'rtp': 'vim/'}
-
+ Plug 'itchyny/lightline.vim'
 Plug 'jpo/vim-railscasts-theme'
 Plug 'dracula/vim', { 'as': 'dracula' }
 
@@ -66,12 +68,28 @@ Plug 'thoughtbot/vim-rspec'
  " Devicons
 Plug 'ryanoasis/vim-devicons'
 
-" vim-easy-align
+" vim-easy-align, :EasyAlign
 Plug 'junegunn/vim-easy-align'
 
+" vim yaml formatter"
 Plug 'tarekbecker/vim-yaml-formatter'
 
+" vim icons"
+Plug 'ryanoasis/vim-webdevicons'
 
+"NERDTree"
+Plug 'preservim/nerdtree'
 
+" Elixir Test
+Plug 'habamax/vim-elixir-mix-test'
+
+Plug  'tpope/vim-vinegar'
+Plug 'vim-scripts/Gundo'
+Plug  'mileszs/ack.vim'
+Plug 'vim-scripts/vimwiki'
+
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
+" Completion "" and change ''
+Plug 'tpope/vim-surround'
 call plug#end()
 

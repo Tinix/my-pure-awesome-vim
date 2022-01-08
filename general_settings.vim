@@ -19,6 +19,7 @@ set encoding=utf-8
 set guicursor=i:blinkwait700-blinkon400-blinkoff250
 " showmatch enable close-bracket
 set showmatch
+set splitbelow "term below"
 
 " :DoMatchParen "-> enable
 " NoMatchParen  " -> disable
