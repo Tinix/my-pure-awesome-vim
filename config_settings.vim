@@ -1,5 +1,5 @@
 " ---------------------------- Config Settings ------------------------------
-" colorscheme zenburn
+"
 colorscheme gruvbox
 " set background=light
 set background=dark

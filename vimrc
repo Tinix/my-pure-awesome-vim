@@ -54,7 +54,9 @@ Plug 'arzg/vim-colors-xcode' "xcodelighthc
 Plug 'chriskempson/base16-vim'
 Plug 'victorze/foo' "colorscheme hacker"
 Plug 'sonph/onehalf', {'rtp': 'vim/'}
- Plug 'itchyny/lightline.vim'
+
+" below Plug was comment before that the top bar vim wos desactivated
+" Plug 'itchyny/lightline.vim'
 Plug 'jpo/vim-railscasts-theme'
 Plug 'dracula/vim', { 'as': 'dracula' }
 
