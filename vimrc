@@ -17,50 +17,49 @@ source ~/.vim/resize.vim
 " ------------------------------ Plugins ( VimPlug ) ------------------------------
 call plug#begin('~/.vim/plugged')
 
+Plug 'neoclide/coc.nvim', {'branch': 'release'} " Make your Neovim as smart as VSCode.
+Plug 'sainnhe/sonokai' " Color scheme.
 Plug 'sheerun/vim-polyglot' " A collection of language packs for Vim.
 Plug 'ap/vim-css-color' " Context-sensitive color name highlighter.
 Plug 'junegunn/goyo.vim' " Distraction-free writing in Vim.
-
 Plug 'vim-airline/vim-airline' " Status/tabline for vim that's light as air.
 Plug 'tpope/vim-fugitive' " Fugitive is the premier Vim plugin for Git.
-Plug 'gruvbox-community/gruvbox'
-
 Plug 'junegunn/fzf' " Fzf is a general-purpose command-line fuzzy finder.
 Plug 'junegunn/fzf.vim' " Vim plugin for basic wrapper funtion to FZF.
 Plug 'airblade/vim-rooter'
-
+Plug 'vimwiki/vimwiki' " Personal wiki.
+Plug 'aperezdc/vim-template' " Simple Vim temlpates plugin.
 Plug 'SirVer/ultisnips' " The ultimate solution for snippets in Vim.
-Plug 'dense-analysis/ale' " ALE (Asynchronous Lint Engine).
 Plug 'prettier/vim-prettier' " A vim plugin wrapper for prettier.
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' } " Completion framework for neovim/Vim8.
-Plug 'tbodt/deoplete-tabnine', { 'do': './install.sh' } " Deep learning to help you write code faster.
 Plug 'skywind3000/asyncrun.vim' " Run Async Shell Commands
-Plug 'easymotion/vim-easymotion'
 Plug 'mattn/emmet-vim'
 Plug 'terryma/vim-multiple-cursors'
-Plug 'Yggdroot/indentLine'
+
+Plug 'tpope/vim-surround' " Quoting/parenthesizing made simple.
+Plug 'heavenshell/vim-jsdoc' " Generate JSDoc to your JavaScript code.
+Plug 'junegunn/goyo.vim' " Distraction-free writing in Vim.
+Plug 'junegunn/limelight.vim' " Hyperfocus-writing in Vim.
+Plug 'skywind3000/asyncrun.vim' " Run shell commands in background.
+Plug 'skywind3000/vim-terminal-help' " Small changes make vim/nvim's internal terminal great again !!.
+Plug 'edkolev/tmuxline.vim' " Simple tmux statusline generator.
+Plug 'andreshazard/vim-freemarker' " Freemarker (ftl) syntax and functions.
+Plug 'preservim/nerdcommenter' " Comment functions so powerful—no comment necessary.
 
 " vim-go plugin goland
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-Plug 'joshdick/onedark.vim'
-
-Plug 'gko/vim-coloresque'
 
 " Themes
+Plug 'gruvbox-community/gruvbox'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'sainnhe/sonokai' " Color scheme.
-Plug 'flazz/vim-colorschemes'
-Plug 'arzg/vim-colors-xcode' "xcodelighthc
-Plug 'chriskempson/base16-vim'
-Plug 'victorze/foo' "colorscheme hacker"
-Plug 'sonph/onehalf', {'rtp': 'vim/'}
+Plug 'arzg/vim-colors-xcode'
+Plug 'fatih/molokai'
+Plug 'patstockwell/vim-monokai-tasty'
 
 " below Plug was comment before that the top bar vim wos desactivated
-" Plug 'itchyny/lightline.vim'
 Plug 'jpo/vim-railscasts-theme'
 Plug 'dracula/vim', { 'as': 'dracula' }
 
-Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-commentary' " https://github.com/tpope/vim-commentary
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-rails'
 Plug 'vim-ruby/vim-ruby'
@@ -73,25 +72,22 @@ Plug 'ryanoasis/vim-devicons'
 " vim-easy-align, :EasyAlign
 Plug 'junegunn/vim-easy-align'
 
-" vim yaml formatter"
-Plug 'tarekbecker/vim-yaml-formatter'
-
 " vim icons"
 Plug 'ryanoasis/vim-webdevicons'
-
-"NERDTree"
-Plug 'preservim/nerdtree'
 
 " Elixir Test
 Plug 'habamax/vim-elixir-mix-test'
 
-Plug  'tpope/vim-vinegar'
-Plug 'vim-scripts/Gundo'
-Plug  'mileszs/ack.vim'
-Plug 'vim-scripts/vimwiki'
+" A collection of Javascript (with ES2015 and Node.js) snippets for Vim
+Plug 'grvcoelho/vim-javascript-snippets'
 
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
-" Completion "" and change ''
-Plug 'tpope/vim-surround'
+" Snippets for React
+Plug 'mlaursen/vim-react-snippets'
+Plug 'jelera/vim-javascript-syntax'
+Plug 'mxw/vim-jsx'
+Plug 'elzr/vim-json'
+Plug 'preservim/nerdtree'
+
+
 call plug#end()
 

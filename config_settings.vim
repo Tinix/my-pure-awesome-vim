@@ -1,6 +1,7 @@
 " ---------------------------- Config Settings ------------------------------
-"
-colorscheme gruvbox
+colorscheme sierra
+" colorscheme monokai_pro
+" colorscheme xcode-default 
 " set background=light
 set background=dark
 
@@ -10,6 +11,22 @@ let g:gruvbox_bold = 1
 let g:gruvbox_termcolors = 256
 let g:gruvbox_hls_cursor = "orange"
 let g:gruvbox_vert_split = "bg1"
+
+let g:sonokai_transparent_background = 1
+" set termguicolors # este trae problemas
+let g:sonokai_style = 'andromeda'
+
+" Airline
+set laststatus=2
+let g:airline_powerline_fonts = 1
+let g:airline_theme = 'sonokai'
+let g:airline#extensions#ale#enabled = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#formatter = 'jsformatter'
+let g:airline#extensions#tabline#fnamemod = ':t'
+" UltiSnips
+let g:UltiSnipsExpandTrigger="<c-s>"
+
 
 " Goyo
  nnoremap <silent><C-n> :Goyo<CR>

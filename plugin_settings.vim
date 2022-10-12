@@ -1,9 +1,9 @@
 " ---------------------------- Plugin Settings ------------------------------
 " Gruvbox-Material
 let g:sonokai_transparent_background = 1
-set termguicolors
+" set termguicolors
 let g:sonokai_style = 'andromeda'
-colorscheme gruvbox
+" colorscheme sonokai
 
 " Goyo
 nnoremap <silent><C-n> :Goyo<CR>
@@ -111,12 +111,13 @@ let g:NERDTreeIgnore = ['^node_modules$']
 
 
 "Emmet enable config just for html/css
-let g:user_emmet_install_global = 0
-autocmd FileType html,css EmmetInstall
-" Emmet enable " Ctrl + y + , enable the completacion , don't forgot Tinix!
-let g:user_emmet_mode='n'    "only enable normal mode functions.
-let g:user_emmet_mode='inv'  "enable all functions, which is equal to
-let g:user_emmet_mode='a'    "enable all function in all mode.
+let g:user_emmet_leader_key=','
+let g:user_emmet_settings = {
+  \  'javascript.jsx' : {
+    \      'extends' : 'jsx',
+    \  },
+  \}
+"
 
 "Float terminal on Nvim config
 let g:floaterm_keymap_new    = '<F7>'

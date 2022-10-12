@@ -22,7 +22,7 @@ inoremap ` ``<left>
 inoremap ( ()<left>
 inoremap [ []<left>
 inoremap < <><left>
-inoremap { { }<left><left>
+inoremap { {}<left>
 inoremap ${ ${}<left>
 inoremap #{ #{}<left><left>
 inoremap {<CR> {<CR>}<ESC>0
@@ -68,10 +68,10 @@ map <F1> :colorscheme gruvbox<CR>
 
 " map <F2> :colorscheme base16-default-dark<CR>
 map <F3> :colorscheme hybrid_reverse<CR>
-map <F4> :colorscheme PaperColor<CR>
-""map <F5> :colorscheme spacegray<CR>
+map <F4> :colorscheme xcodelighthc<CR>
+map <F5> :colorscheme gruvbox<CR>
 map <F5> :colorscheme sonokai<CR>
-map <F6> :colorscheme Base4Tone_Classic_C_Light<CR>
+map <F6> :colorscheme vim-monokai-tasty<CR>
 
 
 " I use keyboard Dvorak 
@@ -111,23 +111,3 @@ vnoremap <C-k> :m '<-2<CR>gv=gv
 " paste text from external"
 set pastetoggle=<F2>
 
-
-" Remap arrow keys to resize window
-" nnoremap <Up>    :resize -2<CR>
-" nnoremap <Down>  :resize +2<CR>
-" nnoremap <Left>  :vertical resize -2<CR>
-" nnoremap <Right> :vertical resize +2<CR>
-
-
-" By default, this plugin uses these mappings:
-" nnoremap <silent> <c-left> :CmdResizeLeft<cr>
-" nnoremap <silent> <c-down> :CmdResizeDown<cr>
-" nnoremap <silent> <c-up> :CmdResizeUp<cr>
-" nnoremap <silent> <c-right> :CmdResizeRight<cr>
-
-
-
-" If you want to set your own mappings, copy this line into your vimrc:
-
-" let g:vim_resize_disable_auto_mappings = 1
-" and use the format above to customize them to your liking.
