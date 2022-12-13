@@ -1,5 +1,7 @@
 " ---------------------------- Config Settings ------------------------------
-colorscheme sierra
+colorscheme one
+" colorscheme sierra
+" colorscheme zenburn
 " colorscheme monokai_pro
 " colorscheme xcode-default 
 " set background=light
@@ -137,6 +139,9 @@ let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['myext'] = 'ƛ'
 " Config YouCompleteMe
 let g:plug_timeout = 300
 
+vmap <C-c> y:call system("xclip -i -selection clipboard", getreg("\""))<CR>:call system("xclip -i", getreg("\""))<CR>
+nmap <C-v> p:call setreg("\"",system("xclip -o -selection clipboard"))<CR>p")")")"))
+
 
 " This makes vim transparent in terminal by default
 " hi Normal ctermbg=NONE
@@ -164,3 +169,4 @@ let g:plug_timeout = 300
 "    endif
 " endfunction
 " nnoremap <C-t> : call Toggle_transparent()<CR>
+

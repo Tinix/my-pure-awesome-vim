@@ -48,12 +48,19 @@ Plug 'preservim/nerdcommenter' " Comment functions so powerful—no comment nece
 " vim-go plugin goland
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
+" plugin that provides Rust file detection, syntax highlighting
+Plug 'rust-lang/rust.vim'
+
 " Themes
 Plug 'gruvbox-community/gruvbox'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'arzg/vim-colors-xcode'
 Plug 'fatih/molokai'
 Plug 'patstockwell/vim-monokai-tasty'
+Plug 'sainnhe/everforest'
+Plug 'tomasiser/vim-code-dark'
+Plug 'ayu-theme/ayu-vim'
+Plug 'sonph/onehalf', { 'rtp': 'vim' }
 
 " below Plug was comment before that the top bar vim wos desactivated
 Plug 'jpo/vim-railscasts-theme'
