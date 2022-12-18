@@ -1,5 +1,5 @@
 " Author: Daniel Tinivella <dtinivella@gmail.com>
-" Gitlab: https://gitlab.com/tinix/my-pure-awesome-vim
+" Github: https://github.com/Tinix/my-pure-awesome-vim
 
 set rtp+=/usr/local/lib/python2.7.13/dist-packages/powerline/bindings/vim/
 
@@ -23,6 +23,7 @@ Plug 'sheerun/vim-polyglot' " A collection of language packs for Vim.
 Plug 'ap/vim-css-color' " Context-sensitive color name highlighter.
 Plug 'junegunn/goyo.vim' " Distraction-free writing in Vim.
 Plug 'vim-airline/vim-airline' " Status/tabline for vim that's light as air.
+Plug 'vim-airline/vim-airline-themes' " Status/tabline for vim that's light as air.
 Plug 'tpope/vim-fugitive' " Fugitive is the premier Vim plugin for Git.
 Plug 'junegunn/fzf' " Fzf is a general-purpose command-line fuzzy finder.
 Plug 'junegunn/fzf.vim' " Vim plugin for basic wrapper funtion to FZF.
