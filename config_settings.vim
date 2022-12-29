@@ -21,14 +21,14 @@ let g:sonokai_style = 'andromeda'
 " Airline
 set laststatus=2
 let g:airline_powerline_fonts = 1
-let g:airline_theme = 'sonokai'
+let g:airline_theme = 'dracula'
 let g:airline#extensions#ale#enabled = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#formatter = 'jsformatter'
 let g:airline#extensions#tabline#fnamemod = ':t'
+
 " UltiSnips
 let g:UltiSnipsExpandTrigger="<c-s>"
-
 
 " Goyo
  nnoremap <silent><C-n> :Goyo<CR>
@@ -45,18 +45,9 @@ let g:limelight_conceal_guifg = '#777777'
 autocmd! User GoyoEnter nested call <SID>goyo_enter()
 autocmd! User GoyoLeave nested call <SID>goyo_leave()
 
-" Airline
-set laststatus=2
-let g:airline_powerline_fonts = 1
-let g:airline_theme = 'violet'
-let g:airline#extensions#ale#enabled = 1
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#formatter = 'jsformatter'
-let g:airline#extensions#tabline#fnamemod = ':t'
+" Ale to elixir
 let g:ale_fixers = { 'elixir': ['mix_format'] }
 
-" Air-line
-let g:airline_powerline_fonts = 1
 
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
@@ -89,8 +80,6 @@ let g:fzf_layout = { 'window': { 'width': 1, 'height': 0.4, 'yoffset': 1, 'borde
 " Vim-pry 
 " :call pry#insert()
 nmap <leader>d :call pry#insert()<cr>
-
-
 
 " Mode Cursor Settings
 

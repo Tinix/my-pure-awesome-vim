@@ -96,6 +96,9 @@ Plug 'mxw/vim-jsx'
 Plug 'elzr/vim-json'
 Plug 'preservim/nerdtree'
 
+" Files extension .tmpl 
+Plug 'tibabit/vim-templates'
+
 
 call plug#end()
 
