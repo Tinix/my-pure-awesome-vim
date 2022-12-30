@@ -159,3 +159,7 @@ function! Toggle_transparent()
 endfunction
 nnoremap <C-t> : call Toggle_transparent()<CR>
 
+
+" https://togglebit.io/posts/debugging-rust-in-vim/
+" Debugger activo
+let g:termdebugger="rust-gdb"
