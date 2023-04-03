@@ -2,23 +2,29 @@
 syntax enable
 syntax on
 color default
-set laststatus=2
-set autoindent
-set hlsearch
-set number
-set mouse=a
-set ruler
-set mouse=a
 set autoindent
 set expandtab
+
+set hlsearch
+set laststatus=2
+set mouse=a
+set mouse=a
+set number
+set ruler
+
 set shiftwidth=2
 set tabstop=2
+set autoindent smartindent
+set ts=2
+set sw=2
+
 set clipboard=unnamed
 set showcmd
+set showmatch
+
 set encoding=utf-8
 set guicursor=i:blinkwait700-blinkon400-blinkoff250
 " showmatch enable close-bracket
-set showmatch
 set splitbelow "term below"
 set wildmenu
 
@@ -27,7 +33,6 @@ set wildmenu
 let g:loaded_matchparen=1
 
 set sw=2
-set laststatus=2
 
 "ctags
 set autochdir 
@@ -48,7 +53,9 @@ set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c)\
 set cursorline " cursor horizontal"
 autocmd InsertEnter * highlight CursorLine guibg=#944050 guifg=fg
 autocmd InsertLeave * highlight CursorLine guibg=#004000 guifg=fg
-" set cursorcolumn  " cursor vertical"
+
+" set cursorcolumn  " cursor vertical" "not recommended"
+
 " autocmd InsertEnter * highlight CursorColumn ctermfg=White ctermbg=berry cterm=bold guifg=white guibg=yellow gui=bold
 " autocmd InsertLeave * highlight CursorColumn ctermfg=Black ctermbg=Yellow cterm=bold guifg=Black guibg=yellow gui=NONE
 

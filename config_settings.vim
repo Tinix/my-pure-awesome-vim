@@ -1,5 +1,6 @@
 " ---------------------------- Config Settings ------------------------------
-colorscheme one
+" colorscheme one
+colorscheme happy_hacking
 " colorscheme sierra
 " colorscheme zenburn
 " colorscheme monokai_pro
@@ -163,3 +164,21 @@ nnoremap <C-t> : call Toggle_transparent()<CR>
 " https://togglebit.io/posts/debugging-rust-in-vim/
 " Debugger activo
 let g:termdebugger="rust-gdb"
+" Rust identation default to 0
+let g:rust_recommended_style = 0
+
+
+"configuracion para pegar tocar Esc 2 veces"
+" let &t_SI .= "\<Esc>[?2004h"
+" let &t_EI .= "\<Esc>[?2004l"
+
+" inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
+
+" function! XTermPasteBegin()
+"   set pastetoggle=<Esc>[201~
+"   set paste
+"   return ""
+" endfunction
+"
+
+
