@@ -99,5 +99,7 @@ Plug 'preservim/nerdtree'
 " Files extension .tmpl 
 Plug 'tibabit/vim-templates'
 
+Plug 'github/copilot.vim'
+
 call plug#end()
 
